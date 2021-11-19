@@ -1,0 +1,14 @@
+{
+  "extends": ["taro/react", "prettier"],
+  "parser": "babel-eslint",
+  "rules": {
+    "react/jsx-uses-react": "off",
+    "react/react-in-jsx-scope": "off",
+    // "no-unused-vars": [1, {"vars": "all", "args": "after-used"}],
+    "prettier/prettier": [2, {
+      "endOfLine":"auto"
+    }],
+    "quotes": [2, "single"]
+  },
+  "plugins": ["prettier"]
+}
