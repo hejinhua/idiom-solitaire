@@ -10,7 +10,8 @@ let reqNum = 0
 export const startLoading = () => {
   if (reqNum === 0) {
     Taro.showLoading({
-      title: '加载中'
+      title: '加载中',
+      mask: true
     })
   }
   reqNum++

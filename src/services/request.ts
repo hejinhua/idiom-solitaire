@@ -33,9 +33,10 @@ class httpRequest {
         Authorization: Taro.getStorageSync('Authorization')
       }
     }
+    loading && startLoading()
     return Taro.request(option)
       .then(res => {
-        loading && startLoading()
+        endLoading()
         return res
       })
       .catch(() => {
@@ -43,22 +44,22 @@ class httpRequest {
       })
   }
 
-  get(url, data, loading) {
+  get(url, data, loading?) {
     let option = { url, data, loading }
     return this.baseOptions(option)
   }
 
-  post(url, data, contentType, loading) {
+  post(url, data, contentType?, loading?) {
     let params = { url, data, contentType, loading }
     return this.baseOptions(params, 'POST')
   }
 
-  put(url, data, loading) {
+  put(url, data, loading?) {
     let option = { url, data, loading }
     return this.baseOptions(option, 'PUT')
   }
 
-  delete(url, data, loading) {
+  delete(url, data, loading?) {
     let option = { url, data, loading }
     return this.baseOptions(option, 'DELETE')
   }

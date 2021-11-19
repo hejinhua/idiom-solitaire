@@ -19,3 +19,13 @@ export const pageToLogin = () => {
     })
   }
 }
+
+export const showToast = (title, icon = 'none') => {
+  Taro.showToast({
+    title,
+    icon,
+    duaring: 800
+  })
+}
+
+export const isMobile = mobile => /^1[3-9]\d{9}$/.test(mobile)
