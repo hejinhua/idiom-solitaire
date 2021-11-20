@@ -15,16 +15,18 @@ export const pageToLogin = () => {
   let path = getCurrentPageUrl()
   if (!path.includes('login')) {
     Taro.navigateTo({
-      url: '/pages/login/login'
+      url: '/pages/login/index'
     })
   }
 }
 
-export const showToast = (title, icon = 'none') => {
+export const showToast = (title, callback?) => {
   Taro.showToast({
     title,
-    icon,
-    duaring: 800
+    icon: 'none',
+    success() {
+      callback()
+    }
   })
 }
 

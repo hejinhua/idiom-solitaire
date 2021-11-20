@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
+import Taro from '@tarojs/taro'
 import { View, Image, Text, Input } from '@tarojs/components'
 import { isMobile, showToast } from '@/utils/utils'
-import { login } from '@/services/api'
+import { login } from '@/services/user'
 
 import './index.styl'
 
@@ -21,9 +22,17 @@ const Index = () => {
       showToast('请输入密码')
     } else {
       login(data).then(res => {
-        console.log(res)
+        const { token } = res.data
+        Taro.setStorageSync('token', token)
+        Taro.setStorage({ key: 'userInfo', data: res.data })
+        Taro.redirectTo({ url: '/pages/index/index' })
       })
     }
+  }
+  const toRegister = () => {
+    Taro.navigateTo({
+      url: '/pages/register/index'
+    })
   }
   return (
     <View className='wrapper'>
@@ -53,7 +62,9 @@ const Index = () => {
         <View className='login-btn' onClick={handleLogin}>
           登录
         </View>
-        <View className='register-link'>注册账号</View>
+        <View className='register-link' onClick={toRegister}>
+          注册账号
+        </View>
         <View className='tips'>
           <Text>忘记密码联系客服修改：</Text>
           <Text className='tips-underline'>立即联系</Text>

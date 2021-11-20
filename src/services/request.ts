@@ -8,6 +8,7 @@ import Taro from '@tarojs/taro'
 import { endLoading, startLoading } from '@/utils/loadingUtil'
 import getBaseUrl from './baseUrl'
 import interceptors from './interceptors'
+import { pageToLogin, showToast } from '@/utils/utils'
 
 interceptors.forEach(interceptorItem => Taro.addInterceptor(interceptorItem))
 
@@ -17,7 +18,6 @@ type OptionType = {
   method?: any
   header: object
 }
-
 class httpRequest {
   baseOptions(params, method = 'GET') {
     let { url, data, loading = true } = params
@@ -30,14 +30,23 @@ class httpRequest {
       method: method,
       header: {
         'content-type': contentType,
-        Authorization: Taro.getStorageSync('Authorization')
+        Authorization: Taro.getStorageSync('token')
       }
     }
     loading && startLoading()
+    console.log(option, 'option')
     return Taro.request(option)
-      .then(res => {
+      .then((res: any) => {
         endLoading()
-        return res
+        if (res.code === 200) {
+          return res
+        } else {
+          showToast(res.msg, () => {
+            if (res.code === 403) {
+              pageToLogin()
+            }
+          })
+        }
       })
       .catch(() => {
         endLoading()

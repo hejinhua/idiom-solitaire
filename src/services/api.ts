@@ -6,4 +6,10 @@
 
 import httpRequest from './request'
 
-export const login = data => httpRequest.post('login', data)
+export const getCompanyList = data => {
+  return httpRequest.get('company/list', data)
+}
+
+export const getBannerList = data => {
+  return httpRequest.get('banner/list', data)
+}
