@@ -43,7 +43,7 @@ class httpRequest {
       })
   }
 
-  get(url, data, loading?) {
+  get(url, data?, loading?) {
     let option = { url, data, loading }
     return this.baseOptions(option)
   }
