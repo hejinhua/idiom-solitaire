@@ -8,7 +8,6 @@ import Taro from '@tarojs/taro'
 import { endLoading, startLoading } from '@/utils/loadingUtil'
 import getBaseUrl from './baseUrl'
 import interceptors from './interceptors'
-import { pageToLogin, showToast } from '@/utils/utils'
 
 interceptors.forEach(interceptorItem => Taro.addInterceptor(interceptorItem))
 
@@ -34,19 +33,10 @@ class httpRequest {
       }
     }
     loading && startLoading()
-    console.log(option, 'option')
     return Taro.request(option)
       .then((res: any) => {
         endLoading()
-        if (res.code === 200) {
-          return res
-        } else {
-          showToast(res.msg, () => {
-            if (res.code === 403) {
-              pageToLogin()
-            }
-          })
-        }
+        return res
       })
       .catch(() => {
         endLoading()
