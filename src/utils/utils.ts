@@ -14,7 +14,7 @@ export const getCurrentPageUrl = () => {
 export const pageToLogin = () => {
   let path = getCurrentPageUrl()
   if (!path.includes('login')) {
-    Taro.navigateTo({
+    Taro.redirectTo({
       url: '/pages/login/index'
     })
   }

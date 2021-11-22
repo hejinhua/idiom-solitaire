@@ -5,7 +5,8 @@ export default {
     'pages/register/index',
     'pages/material/index',
     'pages/search/index',
-    'pages/mine/index'
+    'pages/mine/index',
+    'pages/review/index'
   ],
   tabBar: {
     list: [

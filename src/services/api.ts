@@ -11,7 +11,7 @@ import httpRequest from './request'
  * @param {string} companyName
  * @return {array}
  */
-export const getCompanyList = data => httpRequest.get('company/list', data)
+export const getCompanyList = data => httpRequest.get('company/list', data, false)
 
 /**
  * @description banner列表

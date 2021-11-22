@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import Taro from '@tarojs/taro'
 import { View, Text, Input, Picker } from '@tarojs/components'
 import { isMobile, showToast } from '@/utils/utils'
 import { register } from '@/services/user'
@@ -12,7 +13,7 @@ const Index = () => {
     phone: '',
     password: '',
     companyName: '',
-    contactPerson: '',
+    customerName: '',
     position: '',
     registerAddress: '',
     address: '',
@@ -29,10 +30,10 @@ const Index = () => {
     }
   }
   const handleRegister = () => {
-    const { phone, password, companyName, contactPerson, registerAddress, address, re_password, position } = data
+    const { phone, password, companyName, customerName, registerAddress, address, re_password, position } = data
     if (!companyName) {
       showToast('请输入公司名称')
-    } else if (!contactPerson) {
+    } else if (!customerName) {
       showToast('请输入联系人')
     } else if (!position) {
       showToast('请输入职位')
@@ -56,7 +57,9 @@ const Index = () => {
       register(data).then(res => {
         // @ts-ignore
         delete data.re_password
-        console.log(res)
+        Taro.redirectTo({
+          url: '/pages/login/index'
+        })
       })
     }
   }
@@ -70,8 +73,8 @@ const Index = () => {
     }
   }
   const selectCompany = item => {
-    const { address, companyId, companyName, contactPerson, registerAddress } = item
-    setData({ ...data, address, companyId, companyName, contactPerson, registerAddress })
+    const { address, companyId, companyName, customerName, registerAddress } = item
+    setData({ ...data, address, companyId, companyName, customerName, registerAddress })
     setCompanyList([])
   }
   return (
@@ -105,8 +108,8 @@ const Index = () => {
             type='text'
             placeholder='请输入联系人'
             className='input'
-            onInput={e => handleChange('contactPerson', e)}
-            value={data.contactPerson}
+            onInput={e => handleChange('customerName', e)}
+            value={data.customerName}
           />
         </View>
         <View className='input-wrapper'>

@@ -19,6 +19,9 @@ export const HTTP_STATUS = {
 
 export const CUSTOM_STATUS = {
   SUCCESS: 200,
-  AUTHENTICATE: 401,
+  AUTH_FORBIDDEN: 297, // 账号被禁用
+  AUTH_REVIEWING: 298, // 账号审核中
+  AUTH_REFUSE: 299, // 账号审核被拒绝
+  AUTHENTICATE: 403,
   SERVER_ERROR: 500
 }

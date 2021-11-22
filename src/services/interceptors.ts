@@ -28,6 +28,14 @@ const customInterceptor = chain => {
       const { code, msg } = res.data || {}
       if (code === CUSTOM_STATUS.SUCCESS) {
         return res.data
+      } else if (code === CUSTOM_STATUS.AUTH_REVIEWING) {
+        Taro.navigateTo({
+          url: '/pages/review/index'
+        })
+      } else if (code === CUSTOM_STATUS.AUTH_REFUSE) {
+        Taro.navigateTo({
+          url: '/pages/register/index'
+        })
       } else {
         showToast(msg, () => {
           if (code === CUSTOM_STATUS.AUTHENTICATE) {
