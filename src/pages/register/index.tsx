@@ -66,11 +66,13 @@ const Index = () => {
     } else if (password !== re_password) {
       showToast('两次密码输入不一致')
     } else {
-      // @ts-ignore
-      delete data.re_password
       const api = update === 'true' ? updateRegisterInfo : register
-      api(data).then(() => {
-        // pageToLogin()
+      if (update === 'true') {
+        // @ts-ignore
+        data.token = getGlobalData('updateUserInfo').token
+      }
+      api({ ...data }).then(() => {
+        pageToLogin()
       })
     }
   }

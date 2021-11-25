@@ -32,8 +32,6 @@ const customInterceptor = chain => {
       } else if (code === CUSTOM_STATUS.AUTH_REVIEWING) {
         toPage('/pages/review/index?result=reviewing')
       } else if (code === CUSTOM_STATUS.AUTH_REFUSE) {
-        const { token } = res.data?.data || {}
-        Taro.setStorageSync('token', token)
         setGlobalData('updateUserInfo', res.data?.data)
         toPage('/pages/review/index?result=refuse')
       } else {
