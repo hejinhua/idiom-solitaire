@@ -30,11 +30,11 @@ const customInterceptor = chain => {
         return res.data
       } else if (code === CUSTOM_STATUS.AUTH_REVIEWING) {
         Taro.navigateTo({
-          url: '/pages/review/index'
+          url: '/pages/review/index?result=reviewing'
         })
       } else if (code === CUSTOM_STATUS.AUTH_REFUSE) {
         Taro.navigateTo({
-          url: '/pages/register/index'
+          url: '/pages/review/index?result=refuse'
         })
       } else {
         showToast(msg, () => {

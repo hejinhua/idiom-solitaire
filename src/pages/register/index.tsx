@@ -5,6 +5,7 @@ import { isMobile, showToast } from '@/utils/utils'
 import { register } from '@/services/user'
 import { getCompanyList } from '@/services/api'
 import { CompanyType } from '@/constants/commonTypes'
+import Button from '@/components/Button'
 
 import './index.styl'
 
@@ -54,9 +55,9 @@ const Index = () => {
     } else if (password !== re_password) {
       showToast('两次密码输入不一致')
     } else {
-      register(data).then(res => {
-        // @ts-ignore
-        delete data.re_password
+      // @ts-ignore
+      delete data.re_password
+      register(data).then(() => {
         Taro.redirectTo({
           url: '/pages/login/index'
         })
@@ -168,9 +169,7 @@ const Index = () => {
             onInput={e => handleChange('re_password', e)}
           />
         </View>
-        <View className='login-btn' onClick={handleRegister}>
-          提交
-        </View>
+        <Button text='提交' onClick={handleRegister} style='margin-top: 100px' />
       </View>
     </View>
   )

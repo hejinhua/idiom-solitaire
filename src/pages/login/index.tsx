@@ -3,6 +3,7 @@ import Taro from '@tarojs/taro'
 import { View, Image, Text, Input } from '@tarojs/components'
 import { isMobile, showToast } from '@/utils/utils'
 import { login } from '@/services/user'
+import Button from '@/components/Button'
 
 import './index.styl'
 
@@ -22,10 +23,12 @@ const Index = () => {
       showToast('请输入密码')
     } else {
       login(data).then(res => {
-        const { token } = res.data
-        Taro.setStorageSync('token', token)
-        Taro.setStorage({ key: 'userInfo', data: res.data })
-        Taro.redirectTo({ url: '/pages/index/index' })
+        if (res?.data) {
+          const { token } = res.data
+          Taro.setStorageSync('token', token)
+          Taro.setStorage({ key: 'userInfo', data: res.data })
+          Taro.redirectTo({ url: '/pages/index/index' })
+        }
       })
     }
   }
@@ -59,9 +62,7 @@ const Index = () => {
             onInput={e => handleChange('password', e)}
           />
         </View>
-        <View className='login-btn' onClick={handleLogin}>
-          登录
-        </View>
+        <Button text='登录' onClick={handleLogin} style='margin-top: 100px' />
         <View className='register-link' onClick={toRegister}>
           注册账号
         </View>
