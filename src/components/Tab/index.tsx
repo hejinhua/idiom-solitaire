@@ -3,37 +3,12 @@
  * @Date: 2021-11-20 17:51:12
  * @Description: 左侧tab
  */
-import React, { useState, useEffect } from 'react'
-import { View, Text, Image } from '@tarojs/components'
-import { DishType } from '@/constants/commonTypes'
-import { getDishList } from '@/services/api'
+import React from 'react'
+import { View, Text } from '@tarojs/components'
 
 import './index.styl'
 
-const Index = () => {
-  const [list, setList] = useState<Array<DishType>>([])
-  const [current, setCurrent] = useState(-1)
-  const [subCurrent, setSubCurrent] = useState(-1)
-  useEffect(() => {
-    getDishList().then(res => {
-      setList(res.data || [])
-      if (res.data?.length > 0) {
-        clickTab(res.data[0])
-      }
-    })
-  }, [setList])
-
-  const clickTab = item => {
-    setCurrent(item.seriesId)
-    if (item.dishSeriesList[0]) {
-      setSubCurrent(item.dishSeriesList[0].seriesId)
-    }
-  }
-
-  const clickSubTab = item => {
-    setSubCurrent(item.seriesId)
-  }
-
+const Index = ({ list, current, subCurrent, clickTab, clickSubTab }) => {
   return (
     <View className='tab'>
       {list.map(item => (

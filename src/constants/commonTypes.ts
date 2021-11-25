@@ -17,7 +17,7 @@ export type BannerType = {
   linkType: 1 | 2 // 1菜品，2原料
 }
 
-export type DishType = {
+export type DishSeriesType = {
   dishSeriesList: Array<{
     seriesId: number
     seriesPid: number
@@ -29,4 +29,10 @@ export type DishType = {
   seriesPid: 0
   sort: number
   status: string
+}
+export type DishType = {
+  dishFace: string
+  dishId: number
+  dishName: string
+  dishDesc: string
 }

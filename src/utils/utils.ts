@@ -3,6 +3,7 @@
  * @Date: 2021-11-16 11:31:53
  * @Description: 通用 utils
  */
+import { tabbarUrlList } from '@/constants/constants'
 import Taro from '@tarojs/taro'
 
 export const getCurrentPageUrl = () => {
@@ -10,6 +11,13 @@ export const getCurrentPageUrl = () => {
   let currentPage = pages[pages.length - 1]
   let url = currentPage.route
   return url
+}
+export const toPage = (url: string, redirect?: boolean) => {
+  if (tabbarUrlList.some(item => url.includes(item))) {
+    Taro.switchTab({ url })
+  } else {
+    redirect ? Taro.redirectTo({ url }) : Taro.navigateTo({ url })
+  }
 }
 export const pageToLogin = () => {
   let path = getCurrentPageUrl()

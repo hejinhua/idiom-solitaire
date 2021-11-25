@@ -1,27 +1,38 @@
-import React, { useState } from 'react'
-import Taro from '@tarojs/taro'
+import React, { useState, useMemo } from 'react'
+import Taro, { useRouter } from '@tarojs/taro'
 import { View, Text, Input, Picker } from '@tarojs/components'
-import { isMobile, showToast } from '@/utils/utils'
-import { register } from '@/services/user'
+import { isMobile, pageToLogin, showToast } from '@/utils/utils'
+import { register, updateRegisterInfo } from '@/services/user'
 import { getCompanyList } from '@/services/api'
 import { CompanyType } from '@/constants/commonTypes'
 import Button from '@/components/Button'
 
 import './index.styl'
-
+import { getGlobalData } from '@/utils/global-data'
 const Index = () => {
+  const { update } = useRouter()?.params || {}
   const [data, setData] = useState({
     phone: '',
     password: '',
     companyName: '',
     customerName: '',
-    position: '',
+    companyPosition: '',
     registerAddress: '',
     address: '',
     re_password: '',
     companyId: ''
   })
   const [companyList, setCompanyList] = useState<Array<CompanyType>>([])
+  const disabled = useMemo(() => {
+    if (update === 'true') {
+      const { company, phone, customerName, customerId, companyPosition } = getGlobalData('updateUserInfo') || {}
+      const { companyId, companyName, registerAddress, address } = company || {}
+      setData({ ...data, phone, companyName, customerName, registerAddress, address, companyId, companyPosition })
+      return customerId !== company.customerId
+    } else {
+      return false
+    }
+  }, [])
   const handleChange = (name, e) => {
     const { value } = e.detail
     data[name] = name === 'registerAddress' ? value.join('、') : value
@@ -31,12 +42,12 @@ const Index = () => {
     }
   }
   const handleRegister = () => {
-    const { phone, password, companyName, customerName, registerAddress, address, re_password, position } = data
+    const { phone, password, companyName, customerName, registerAddress, address, re_password, companyPosition } = data
     if (!companyName) {
       showToast('请输入公司名称')
     } else if (!customerName) {
       showToast('请输入联系人')
-    } else if (!position) {
+    } else if (!companyPosition) {
       showToast('请输入职位')
     } else if (!registerAddress) {
       showToast('请输入注册地址')
@@ -57,10 +68,9 @@ const Index = () => {
     } else {
       // @ts-ignore
       delete data.re_password
-      register(data).then(() => {
-        Taro.redirectTo({
-          url: '/pages/login/index'
-        })
+      const api = update === 'true' ? updateRegisterInfo : register
+      api(data).then(() => {
+        // pageToLogin()
       })
     }
   }
@@ -82,10 +92,11 @@ const Index = () => {
     <View className='wrapper'>
       <View className='bg' />
       <View className='form'>
-        <View className='title'>详细信息</View>
+        <View className='title'>公司信息</View>
         <View className='input-wrapper'>
           <Text className='label require'>公司名称</Text>
           <Input
+            disabled={disabled}
             type='text'
             placeholder='请输入公司名称'
             className='input'
@@ -104,30 +115,10 @@ const Index = () => {
           )}
         </View>
         <View className='input-wrapper'>
-          <Text className='label require'>联系人</Text>
-          <Input
-            type='text'
-            placeholder='请输入联系人'
-            className='input'
-            onInput={e => handleChange('customerName', e)}
-            value={data.customerName}
-          />
-        </View>
-        <View className='input-wrapper'>
-          <Text className='label require'>职位</Text>
-          <Input
-            type='text'
-            placeholder='请输入职位'
-            className='input'
-            onInput={e => handleChange('position', e)}
-            value={data.position}
-          />
-        </View>
-        <View className='input-wrapper'>
           <Text className='label require'>注册地址</Text>
           <Picker
             mode='region'
-            value={data.registerAddress.split('、')}
+            value={data.registerAddress?.split('、')}
             onChange={e => handleChange('registerAddress', e)}
             className='input'
           >
@@ -144,10 +135,36 @@ const Index = () => {
             value={data.address}
           />
         </View>
-        <View className='title'>手机验证</View>
+        <View className='title'>用户信息</View>
+        <View className='input-wrapper'>
+          <Text className='label require'>姓名</Text>
+          <Input
+            type='text'
+            placeholder='请输入您的姓名'
+            className='input'
+            onInput={e => handleChange('customerName', e)}
+            value={data.customerName}
+          />
+        </View>
+        <View className='input-wrapper'>
+          <Text className='label require'>职位</Text>
+          <Input
+            type='text'
+            placeholder='请输入职位'
+            className='input'
+            onInput={e => handleChange('companyPosition', e)}
+            value={data.companyPosition}
+          />
+        </View>
         <View className='input-wrapper'>
           <Text className='label require'>手机号码</Text>
-          <Input type='number' placeholder='请输入手机号码' className='input' onInput={e => handleChange('phone', e)} />
+          <Input
+            type='number'
+            placeholder='请输入手机号码'
+            className='input'
+            onInput={e => handleChange('phone', e)}
+            value={data.phone}
+          />
         </View>
         <View className='input-wrapper'>
           <Text className='label require'>密码</Text>
@@ -169,7 +186,7 @@ const Index = () => {
             onInput={e => handleChange('re_password', e)}
           />
         </View>
-        <Button text='提交' onClick={handleRegister} style='margin-top: 100px' />
+        <Button text='提交' onClick={handleRegister} style='margin-top: 100rpx' />
       </View>
     </View>
   )

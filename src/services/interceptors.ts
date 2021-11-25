@@ -3,8 +3,9 @@
  * @Date: 2021-11-16 14:59:43
  * @Description: 拦截器
  */
+import { setGlobalData } from '@/utils/global-data'
 import Taro from '@tarojs/taro'
-import { pageToLogin, showToast } from '../utils/utils'
+import { pageToLogin, showToast, toPage } from '../utils/utils'
 import { CUSTOM_STATUS, HTTP_STATUS } from './status'
 
 const customInterceptor = chain => {
@@ -29,13 +30,12 @@ const customInterceptor = chain => {
       if (code === CUSTOM_STATUS.SUCCESS) {
         return res.data
       } else if (code === CUSTOM_STATUS.AUTH_REVIEWING) {
-        Taro.navigateTo({
-          url: '/pages/review/index?result=reviewing'
-        })
+        toPage('/pages/review/index?result=reviewing')
       } else if (code === CUSTOM_STATUS.AUTH_REFUSE) {
-        Taro.navigateTo({
-          url: '/pages/review/index?result=refuse'
-        })
+        const { token } = res.data?.data || {}
+        Taro.setStorageSync('token', token)
+        setGlobalData('updateUserInfo', res.data?.data)
+        toPage('/pages/review/index?result=refuse')
       } else {
         showToast(msg, () => {
           if (code === CUSTOM_STATUS.AUTHENTICATE) {

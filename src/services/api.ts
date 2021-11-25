@@ -19,9 +19,18 @@ export const getCompanyList = data => httpRequest.get('company/list', data, fals
  * @return {list}
  */
 export const getBannerList = data => httpRequest.get('banner/list', data)
-
 /**
  * @description 菜品分类列表
  * @return {list}
  */
-export const getDishList = () => httpRequest.get('dish/series')
+export const getDishSeriesList = () => httpRequest.get('dish/series')
+
+/**
+ * @description 菜品列表
+ * @param {number} seriesPid
+ * @param {number} seriesId
+ * @param {number} pageNo
+ * @param {number} pageSize
+ * @return {list}
+ */
+export const getDishList = data => httpRequest.get('dish/list', data)

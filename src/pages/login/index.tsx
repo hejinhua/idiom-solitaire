@@ -1,14 +1,14 @@
 import React, { useState } from 'react'
 import Taro from '@tarojs/taro'
 import { View, Image, Text, Input } from '@tarojs/components'
-import { isMobile, showToast } from '@/utils/utils'
+import { isMobile, showToast, toPage } from '@/utils/utils'
 import { login } from '@/services/user'
 import Button from '@/components/Button'
 
 import './index.styl'
 
 const Index = () => {
-  const [data, setData] = useState({ phone: '', password: '' })
+  const [data, setData] = useState({ phone: Taro.getStorageSync('phone') || '', password: '' })
   const handleChange = (name, e) => {
     data[name] = e.detail.value
     setData(data)
@@ -22,20 +22,19 @@ const Index = () => {
     } else if (!password) {
       showToast('请输入密码')
     } else {
+      Taro.setStorage({ data: phone, key: 'phone' })
       login(data).then(res => {
         if (res?.data) {
           const { token } = res.data
           Taro.setStorageSync('token', token)
           Taro.setStorage({ key: 'userInfo', data: res.data })
-          Taro.redirectTo({ url: '/pages/index/index' })
+          toPage('/pages/index/index', true)
         }
       })
     }
   }
   const toRegister = () => {
-    Taro.navigateTo({
-      url: '/pages/register/index'
-    })
+    toPage('/pages/register/index')
   }
   return (
     <View className='wrapper'>
@@ -44,6 +43,7 @@ const Index = () => {
         <View className='input-wrapper'>
           <Image src='' className='input-icon' />
           <Input
+            value={data.phone}
             type='number'
             placeholder='请输入手机号码/用户名'
             className='input'
@@ -62,7 +62,7 @@ const Index = () => {
             onInput={e => handleChange('password', e)}
           />
         </View>
-        <Button text='登录' onClick={handleLogin} style='margin-top: 100px' />
+        <Button text='登录' onClick={handleLogin} style='margin-top: 100rpx' />
         <View className='register-link' onClick={toRegister}>
           注册账号
         </View>

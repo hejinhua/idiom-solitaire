@@ -4,19 +4,17 @@
  * @Description: 审核页面
  */
 import React from 'react'
-import Taro, { useRouter } from '@tarojs/taro'
+import { useRouter } from '@tarojs/taro'
 import { View, Text } from '@tarojs/components'
 import Button from '@/components/Button'
+import { toPage } from '@/utils/utils'
 
 import './index.styl'
 
 const Index = () => {
   const { result } = useRouter()?.params || {}
   const handleUpdate = () => {
-    // TODO 携带修改参数
-    Taro.navigateTo({
-      url: '/pages/register/index'
-    })
+    toPage('/pages/register/index?update=true')
   }
   return (
     <View className='wrapper'>

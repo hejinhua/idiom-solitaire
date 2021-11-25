@@ -25,3 +25,7 @@ export const register = data => {
   data.password = encryptPassword(data.password)
   return httpRequest.post(data.companyId ? 'customer/register' : 'customer/registerWithCompany', data)
 }
+export const updateRegisterInfo = data => {
+  data.password = encryptPassword(data.password)
+  return httpRequest.put('customer/updateRegisterInfo', data)
+}

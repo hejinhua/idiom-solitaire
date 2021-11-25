@@ -5,7 +5,7 @@
  */
 
 import Taro from '@tarojs/taro'
-import { endLoading, startLoading } from '@/utils/loadingUtil'
+import { endLoading, startLoading } from '@/utils/loading-util'
 import getBaseUrl from './baseUrl'
 import interceptors from './interceptors'
 
