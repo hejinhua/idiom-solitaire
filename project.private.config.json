@@ -23,6 +23,12 @@
           "pathName": "pages/register/index",
           "query": "",
           "scene": null
+        },
+        {
+          "name": "pages/mine/index",
+          "pathName": "pages/mine/index",
+          "query": "",
+          "scene": null
         }
       ]
     }

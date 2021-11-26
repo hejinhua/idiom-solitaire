@@ -22,7 +22,9 @@ export const toPage = (url: string, redirect?: boolean) => {
 export const pageToLogin = () => {
   let path = getCurrentPageUrl()
   if (!path.includes('login')) {
-    Taro.redirectTo({
+    Taro.removeStorageSync('token')
+    Taro.removeStorageSync('userInfo')
+    Taro.reLaunch({
       url: '/pages/login/index'
     })
   }

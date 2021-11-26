@@ -6,9 +6,10 @@ import { register, updateRegisterInfo } from '@/services/user'
 import { getCompanyList } from '@/services/api'
 import { CompanyType } from '@/constants/commonTypes'
 import Button from '@/components/Button'
+import { getGlobalData } from '@/utils/global-data'
 
 import './index.styl'
-import { getGlobalData } from '@/utils/global-data'
+
 const Index = () => {
   const { update } = useRouter()?.params || {}
   const [data, setData] = useState({

@@ -31,6 +31,7 @@ const Index = () => {
     const { seriesId, dishSeriesList } = item
     setCurrent(seriesId)
     setSubCurrent(dishSeriesList[0]?.seriesId)
+    pageNo = 1
     loadDishList(seriesId, dishSeriesList[0]?.seriesId)
   }
   const clickSubTab = item => {
