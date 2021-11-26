@@ -34,3 +34,7 @@ export const getDishSeriesList = () => httpRequest.get('dish/series')
  * @return {list}
  */
 export const getDishList = data => httpRequest.get('dish/list', data)
+
+export const getQrImage = () => httpRequest.get('config/servicePhone')
+
+export const getServicePhone = () => httpRequest.get('config/servicePhone')

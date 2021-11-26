@@ -1,10 +1,11 @@
 import React, { useMemo } from 'react'
 import { View, Text, Image } from '@tarojs/components'
 import Taro from '@tarojs/taro'
-import { getGlobalData } from '@/utils/global-data'
+import { getGlobalData, setGlobalData } from '@/utils/global-data'
 import { pageToLogin, toPage } from '@/utils/utils'
 
 import './index.styl'
+import { getServicePhone } from '@/services/api'
 
 const menuList = [
   { icon: '', name: '关于多味', id: 'about' },
@@ -20,6 +21,19 @@ const Index = () => {
         toPage('/pages/about/index')
         break
       case 'contact':
+        const servicePhone = getGlobalData('servicePhone')
+        if (servicePhone) {
+          Taro.makePhoneCall({
+            phoneNumber: servicePhone
+          })
+        } else {
+          getServicePhone().then(res => {
+            setGlobalData('servicePhone', res?.data)
+            Taro.makePhoneCall({
+              phoneNumber: res?.data
+            })
+          })
+        }
         break
       default:
         pageToLogin()

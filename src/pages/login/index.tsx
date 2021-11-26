@@ -4,11 +4,16 @@ import { View, Image, Text, Input } from '@tarojs/components'
 import { isMobile, showToast, toPage } from '@/utils/utils'
 import { login } from '@/services/user'
 import Button from '@/components/Button'
+import QrModal from '@/components/QrModal'
 
 import './index.styl'
 
 const Index = () => {
   const [data, setData] = useState({ phone: Taro.getStorageSync('phone') || '', password: '' })
+  const [visible, setVisible] = useState(false)
+  const toogleVisible = () => {
+    setVisible(!visible)
+  }
   const handleChange = (name, e) => {
     data[name] = e.detail.value
     setData(data)
@@ -68,9 +73,12 @@ const Index = () => {
         </View>
         <View className='tips'>
           <Text>忘记密码联系客服修改：</Text>
-          <Text className='tips-underline'>立即联系</Text>
+          <Text className='tips-underline' onClick={toogleVisible}>
+            立即联系
+          </Text>
         </View>
       </View>
+      <QrModal visible={visible} onClose={toogleVisible} />
     </View>
   )
 }
