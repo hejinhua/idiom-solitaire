@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from 'react'
-import Taro, { useRouter } from '@tarojs/taro'
+import { useRouter } from '@tarojs/taro'
 import { View, Text, Input, Picker } from '@tarojs/components'
 import { isMobile, pageToLogin, showToast } from '@/utils/utils'
 import { register, updateRegisterInfo } from '@/services/user'
@@ -42,7 +42,8 @@ const Index = () => {
     }
   }
   const handleRegister = () => {
-    const { phone, password, companyName, customerName, registerAddress, address, re_password, companyPosition } = data
+    const { re_password, ...rest } = data
+    const { phone, password, companyName, customerName, registerAddress, address, companyPosition } = rest
     if (!companyName) {
       showToast('请输入公司名称')
     } else if (!customerName) {
@@ -71,7 +72,7 @@ const Index = () => {
         // @ts-ignore
         data.token = getGlobalData('updateUserInfo').token
       }
-      api({ ...data }).then(() => {
+      api(rest).then(() => {
         pageToLogin()
       })
     }

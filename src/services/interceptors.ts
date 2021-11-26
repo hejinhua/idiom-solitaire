@@ -49,6 +49,6 @@ const customInterceptor = chain => {
 // logInterceptor - 用于打印请求的相关信息
 // timeoutInterceptor - 在请求超时时抛出错误。
 // @ts-ignore
-const interceptors = [customInterceptor, Taro.interceptors.logInterceptor]
+const interceptors = [customInterceptor, Taro.interceptors.timeoutInterceptor]
 
 export default interceptors

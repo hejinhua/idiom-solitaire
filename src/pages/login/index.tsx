@@ -23,7 +23,7 @@ const Index = () => {
       showToast('请输入密码')
     } else {
       Taro.setStorage({ data: phone, key: 'phone' })
-      login({ ...data }).then(res => {
+      login({ phone, password }).then(res => {
         if (res?.data) {
           const { token } = res.data
           Taro.setStorageSync('token', token)
