@@ -63,3 +63,29 @@ export const customerService = () => {
     })
   }
 }
+
+/**
+ * @description: 缓存栈
+ * @param {string} listName
+ * @param {number} listLength
+ * @param {any} data
+ * @return {array} list
+ */
+export const setStack = (listName: string, listLength: number, data) => {
+  let list = Taro.getStorageSync(listName)
+  if (list) {
+    let index = list.findIndex(item => item === data)
+    if (index !== -1) {
+      list.splice(index, 1)
+    }
+    list.unshift(data)
+    let len = list.length
+    if (len > listLength) {
+      list.splice(listLength, len - listLength)
+    }
+  } else {
+    list = [data]
+  }
+  Taro.setStorageSync(listName, list)
+  return list
+}
