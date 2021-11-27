@@ -66,6 +66,9 @@ const Index = () => {
     setValue(value)
     handleSearch(value)
   }
+  const handleDeleteHistory = () => {
+    Taro.removeStorageSync('searchHistoryList')
+  }
   return (
     <View className='search flex-y'>
       <View className='bg' />
@@ -92,7 +95,7 @@ const Index = () => {
           <Fragment>
             <View className='flex-between history'>
               <Text>搜索历史</Text>
-              <Image src='' className='search-icon' />
+              <Image src='' className='search-icon' onClick={handleDeleteHistory} />
             </View>
             <View className='history-wrapper'>
               {searchHistoryList.map(item => (
