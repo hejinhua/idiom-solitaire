@@ -70,6 +70,7 @@ export type DishDetailType = {
     itemId: number
     linkId: number
     relationName: string
+    relationImg: string
   }>
   seriesId: number
   seriesPid: number

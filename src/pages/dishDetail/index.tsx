@@ -1,24 +1,27 @@
 import React, { useEffect, useState } from 'react'
 import { View, Text, Image, ScrollView } from '@tarojs/components'
 import { useRouter, setNavigationBarTitle } from '@tarojs/taro'
-
-import './index.styl'
 import { getDishDetail } from '@/services/api'
 import { DishDetailType } from '@/constants/commonTypes'
 import DetailBanner from '@/components/DetailBanner'
 import Card from '@/components/Card'
 import Button from '@/components/Button'
-import { formatPrice } from '@/utils/utils'
+import { customerService, formatPrice, toPage } from '@/utils/utils'
+
+import './index.styl'
 
 const Index = () => {
   const { dishId } = useRouter()?.params || {}
-  const [data, setdata] = useState<DishDetailType>()
+  const [data, setData] = useState<DishDetailType>()
   useEffect(() => {
     getDishDetail({ dishId }).then(res => {
       setNavigationBarTitle({ title: res.data?.dishName })
-      setdata(res.data)
+      setData(res.data)
     })
   }, [])
+  const handleOrder = () => {
+    toPage(`/pages/order/index?dishName=${data?.dishName}`)
+  }
   return data ? (
     <View className='wrapper'>
       <DetailBanner dishBanner={data.dishBanner} videoFace={data.videoFace} videoUrl={data.videoUrl} />
@@ -88,24 +91,25 @@ const Index = () => {
         </View>
       </Card>
       <Card title='操作步骤'>
-        <Image src='' className='stepImg' />
-        <Text className='step-text'>{data.productionStep}</Text>
+        {data.productionStep?.split(',').map(item => (
+          <Image key={item} src={item} className='stepImg' />
+        ))}
       </Card>
       <Card title='应用场景'>
         <ScrollView scrollX className='relation-view'>
           {data.relationList.map(item => (
             <View key={item.relationId} className='relation-item'>
-              <Image src='' className='relation-img' />
+              <Image src={item.relationImg} className='relation-img' />
               <Text className='relation-text'>{item.relationName}</Text>
             </View>
           ))}
         </ScrollView>
       </Card>
       <View className='footer'>
-        <View className='service'>
+        <View className='service' onClick={customerService}>
           <Text>客服</Text>
         </View>
-        <Button text='预约试菜' size='normal' onClick={() => {}} style='flex-grow:1' />
+        <Button text='预约试菜' size='normal' onClick={handleOrder} style='flex-grow:1' />
       </View>
     </View>
   ) : null

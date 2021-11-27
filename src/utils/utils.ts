@@ -4,7 +4,9 @@
  * @Description: 通用 utils
  */
 import { tabbarUrlList } from '@/constants/constants'
+import { getServicePhone } from '@/services/api'
 import Taro from '@tarojs/taro'
+import { getGlobalData, setGlobalData } from './global-data'
 
 export const getCurrentPageUrl = () => {
   let pages = Taro.getCurrentPages()
@@ -35,7 +37,7 @@ export const showToast = (title, callback?) => {
     title,
     icon: 'none',
     success() {
-      callback()
+      callback && callback()
     }
   })
 }
@@ -45,4 +47,19 @@ export const isMobile = mobile => /^1[3-9]\d{9}$/.test(mobile)
 export const formatPrice = price => {
   let decimal = price.toString().split('.')[1]
   return decimal?.length >= 1 ? price : price + '.0'
+}
+export const customerService = () => {
+  const servicePhone = getGlobalData('servicePhone')
+  if (servicePhone) {
+    Taro.makePhoneCall({
+      phoneNumber: servicePhone
+    })
+  } else {
+    getServicePhone().then(res => {
+      setGlobalData('servicePhone', res?.data)
+      Taro.makePhoneCall({
+        phoneNumber: res?.data
+      })
+    })
+  }
 }

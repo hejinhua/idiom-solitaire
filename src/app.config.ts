@@ -9,7 +9,8 @@ export default {
     'pages/review/index',
     'pages/about/index',
     'pages/dishDetail/index',
-    'pages/materialDetail/index'
+    'pages/materialDetail/index',
+    'pages/order/index'
   ],
   tabBar: {
     list: [

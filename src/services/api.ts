@@ -51,3 +51,14 @@ export const getQrImage = () => httpRequest.get('config/enterpriseWeChatImg')
  * @description 客服电话
  */
 export const getServicePhone = () => httpRequest.get('config/servicePhone')
+
+/**
+ * @description 预约试菜
+ * @param {string} customerName
+ * @param {string} customerPhone
+ * @param {1|2} tasteType
+ * @param {string} tasteTime
+ * @param {string} address
+ * @param {string} remark
+ */
+export const orderDish = data => httpRequest.post('taste/apply', data)
