@@ -97,7 +97,7 @@ export type MaterialDetailType = {
   materialFace: string
   materialId: number
   materialName: string
-  relationList: Array<{
+  relationList?: Array<{
     relationId: number
     relationType: number
     itemId: number
@@ -107,7 +107,16 @@ export type MaterialDetailType = {
   }>
   saveCondition: string
   savePeriod: string
-  supplierList: null
+  supplierList?: Array<SupplierType>
   videoFace: string
   videoUrl: string
+}
+export type SupplierType = {
+  materialOutput: number
+  materialUnit: string
+  salePrice: number
+  supplierAddress: string
+  supplierId: number
+  supplierName: string
+  supplierPhone: string
 }

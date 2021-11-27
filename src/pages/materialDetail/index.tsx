@@ -31,7 +31,7 @@ const Index = () => {
   }
   const handleSupplier = () => {
     setGlobalData('supplierList', data?.supplierList)
-    toPage('/pages/supplier/index')
+    toPage(`/pages/supplier/index?materialName=${data?.materialName}`)
   }
   return data ? (
     <View className='wrapper2'>
