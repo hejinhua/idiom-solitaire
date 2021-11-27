@@ -3,12 +3,20 @@
  * @Date: 2021-11-20 17:51:12
  * @Description: 左侧tab
  */
-import React from 'react'
+import React, { FC } from 'react'
 import { View, Text } from '@tarojs/components'
 
 import './index.styl'
+import { SeriesType } from '@/constants/commonTypes'
 
-const Index = ({ list, current, subCurrent, clickTab, clickSubTab }) => {
+type Props = {
+  list: Array<SeriesType>
+  current?: number
+  subCurrent?: number
+  clickTab: (data) => void
+  clickSubTab: (data) => void
+}
+const Index: FC<Props> = ({ list, current, subCurrent, clickTab, clickSubTab }) => {
   return (
     <View className='tab'>
       {list.map(item => (
@@ -17,7 +25,7 @@ const Index = ({ list, current, subCurrent, clickTab, clickSubTab }) => {
             {item.seriesName}
           </Text>
           {current === item.seriesId &&
-            item.dishSeriesList?.map(item => (
+            (item.dishSeriesList || item.materialSeriesList)?.map(item => (
               <View
                 key={item.seriesId}
                 className={`sub-item ${subCurrent === item.seriesId ? 'sub-active' : ''}`}

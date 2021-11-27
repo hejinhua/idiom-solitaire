@@ -35,6 +35,12 @@
           "pathName": "pages/dishDetail/index",
           "query": "dishId=1",
           "scene": null
+        },
+        {
+          "name": "pages/material/index",
+          "pathName": "pages/material/index",
+          "query": "",
+          "scene": null
         }
       ]
     }

@@ -63,3 +63,20 @@ export const getDishDetail = data => httpRequest.get('dish/detail', data)
  * @param {string} remark
  */
 export const orderDish = data => httpRequest.post('taste/apply', data)
+
+/**
+ * @description 原料分类列表
+ * @return {list}
+ */
+export const getMaterialSeriesList = () => httpRequest.get('material/series')
+
+/**
+ * @description 原料列表
+ * @param {number} seriesPid
+ * @param {number} seriesId
+ * @param {number} pageNo
+ * @param {number} pageSize
+ * @param {1} newMaterial
+ * @return {list}
+ */
+export const getMaterialList = data => httpRequest.get('material/list', data)

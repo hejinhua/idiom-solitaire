@@ -4,7 +4,7 @@ import Banner from '@/components/Banner'
 import { getDishSeriesList, getDishList } from '@/services/api'
 import { getGlobalData } from '@/utils/global-data'
 import Tab from '@/components/Tab'
-import { DishSeriesType, DishType } from '@/constants/commonTypes'
+import { SeriesType, DishType } from '@/constants/commonTypes'
 import { pageSize } from '@/constants/constants'
 import DishList from '@/components/DishList'
 
@@ -13,7 +13,7 @@ import './index.styl'
 let pageNo = 1
 const Index = () => {
   const { bottom } = useMemo(() => getGlobalData('capsuleInfo'), [])
-  const [seriesList, setSeriesList] = useState<Array<DishSeriesType>>([])
+  const [seriesList, setSeriesList] = useState<Array<SeriesType>>([])
   const [dishList, setDishList] = useState<Array<DishType>>([])
   const [current, setCurrent] = useState<number | undefined>()
   const [subCurrent, setSubCurrent] = useState<number | undefined>()
@@ -61,7 +61,7 @@ const Index = () => {
       params.newDish = 1
     } else {
       params.seriesPid = seriesPid
-      params.seriesId = seriesId
+      seriesId && (params.seriesId = seriesId)
     }
     getDishList(params).then(res => {
       const list = res?.data?.list || []

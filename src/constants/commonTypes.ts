@@ -17,8 +17,14 @@ export type BannerType = {
   linkType: 1 | 2 // 1菜品，2原料
 }
 
-export type DishSeriesType = {
+export type SeriesType = {
   dishSeriesList?: Array<{
+    seriesId: number
+    seriesPid: number
+    seriesName: string
+    status: number
+  }>
+  materialSeriesList?: Array<{
     seriesId: number
     seriesPid: number
     seriesName: string
@@ -77,4 +83,10 @@ export type DishDetailType = {
   status: number
   videoFace?: string
   videoUrl?: string
+}
+export type MaterialType = {
+  materialFace: string
+  materialId: number
+  materialName: string
+  materialDesc: string
 }
