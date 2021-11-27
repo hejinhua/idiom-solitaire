@@ -41,6 +41,12 @@
           "pathName": "pages/material/index",
           "query": "",
           "scene": null
+        },
+        {
+          "name": "pages/materialDetail/index",
+          "pathName": "pages/materialDetail/index",
+          "query": "materialId=1",
+          "scene": null
         }
       ]
     }

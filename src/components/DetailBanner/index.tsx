@@ -9,14 +9,14 @@ import { Swiper, SwiperItem, Image, Video } from '@tarojs/components'
 import './index.styl'
 
 type props = {
-  dishBanner: string
+  banner: string
   videoFace?: string
   videoUrl?: string
 }
-const Index: FC<props> = ({ dishBanner, videoFace, videoUrl }) => {
+const Index: FC<props> = ({ banner, videoFace, videoUrl }) => {
   const [list, setList] = useState<Array<string>>([])
   useEffect(() => {
-    setList(dishBanner?.split(','))
+    setList(banner?.split(','))
   }, [setList])
 
   return (

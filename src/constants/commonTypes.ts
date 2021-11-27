@@ -90,3 +90,24 @@ export type MaterialType = {
   materialName: string
   materialDesc: string
 }
+export type MaterialDetailType = {
+  materialBanner: string
+  materialDesc: string
+  materialDetail: string
+  materialFace: string
+  materialId: number
+  materialName: string
+  relationList: Array<{
+    relationId: number
+    relationType: number
+    itemId: number
+    linkId: number
+    relationName: string
+    relationImg: string
+  }>
+  saveCondition: string
+  savePeriod: string
+  supplierList: null
+  videoFace: string
+  videoUrl: string
+}

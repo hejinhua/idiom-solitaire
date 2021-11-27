@@ -80,3 +80,8 @@ export const getMaterialSeriesList = () => httpRequest.get('material/series')
  * @return {list}
  */
 export const getMaterialList = data => httpRequest.get('material/list', data)
+/**
+ * @description 原料详情
+ * @param {number} materialId
+ */
+export const getMaterialDetail = data => httpRequest.get('material/detail', data)

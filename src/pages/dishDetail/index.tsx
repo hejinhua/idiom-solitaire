@@ -24,7 +24,7 @@ const Index = () => {
   }
   return data ? (
     <View className='wrapper'>
-      <DetailBanner dishBanner={data.dishBanner} videoFace={data.videoFace} videoUrl={data.videoUrl} />
+      <DetailBanner banner={data.dishBanner} videoFace={data.videoFace} videoUrl={data.videoUrl} />
       <View className='name-wrapper flex-y'>
         <Text className='dish-name'>{data.dishName}</Text>
         {data.dishDesc && <Text className='dish-desc'>{data.dishDesc}</Text>}

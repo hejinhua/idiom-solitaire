@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Text, Button } from '@tarojs/components'
+import { View, Text } from '@tarojs/components'
 
 import './index.styl'
 
