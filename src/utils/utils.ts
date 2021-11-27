@@ -41,3 +41,8 @@ export const showToast = (title, callback?) => {
 }
 
 export const isMobile = mobile => /^1[3-9]\d{9}$/.test(mobile)
+
+export const formatPrice = price => {
+  let decimal = price.toString().split('.')[1]
+  return decimal?.length >= 1 ? price : price + '.0'
+}

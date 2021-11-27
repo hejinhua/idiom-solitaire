@@ -29,6 +29,12 @@
           "pathName": "pages/mine/index",
           "query": "",
           "scene": null
+        },
+        {
+          "name": "pages/dishDetail/index",
+          "pathName": "pages/dishDetail/index",
+          "query": "dishId=1",
+          "scene": null
         }
       ]
     }

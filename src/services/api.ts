@@ -19,6 +19,7 @@ export const getCompanyList = data => httpRequest.get('company/list', data, fals
  * @return {list}
  */
 export const getBannerList = data => httpRequest.get('banner/list', data)
+
 /**
  * @description 菜品分类列表
  * @return {list}
@@ -35,6 +36,18 @@ export const getDishSeriesList = () => httpRequest.get('dish/series')
  */
 export const getDishList = data => httpRequest.get('dish/list', data)
 
-export const getQrImage = () => httpRequest.get('config/servicePhone')
+/**
+ * @description 菜品详情
+ * @param {number} dishId
+ */
+export const getDishDetail = data => httpRequest.get('dish/detail', data)
 
+/**
+ * @description 企业微信客服二维码
+ */
+export const getQrImage = () => httpRequest.get('config/enterpriseWeChatImg')
+
+/**
+ * @description 客服电话
+ */
 export const getServicePhone = () => httpRequest.get('config/servicePhone')

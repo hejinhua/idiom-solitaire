@@ -7,7 +7,9 @@ export default {
     'pages/search/index',
     'pages/mine/index',
     'pages/review/index',
-    'pages/about/index'
+    'pages/about/index',
+    'pages/dishDetail/index',
+    'pages/materialDetail/index'
   ],
   tabBar: {
     list: [

@@ -1,7 +1,7 @@
 /*
  * @Author: hjh
  * @Date: 2021-11-20 17:51:12
- * @Description: 左侧tab
+ * @Description: banner
  */
 import React, { useState, useEffect } from 'react'
 import { Swiper, SwiperItem, Image } from '@tarojs/components'

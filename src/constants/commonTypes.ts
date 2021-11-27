@@ -36,3 +36,44 @@ export type DishType = {
   dishName: string
   dishDesc: string
 }
+export type DishDetailType = {
+  areaKey: string
+  dishBanner: string
+  dishDesc: string
+  dishFace: string
+  dishId: number
+  dishName: string
+  flavor: string
+  grossProfit?: number
+  materialTypes: Array<{
+    code: number
+    value: string
+    sort: number
+    materialList: Array<{
+      cost?: number
+      dishId: number
+      dishMaterialId: number
+      grossProfit: number
+      materialId: number
+      materialName: string
+      materialQuantity: string
+      materialType: 1 | 2 | 3 | 4
+      materialUnit: string
+      salePrice?: number
+    }>
+  }>
+  price?: number
+  productionStep: string
+  relationList: Array<{
+    relationId: number
+    relationType: number
+    itemId: number
+    linkId: number
+    relationName: string
+  }>
+  seriesId: number
+  seriesPid: number
+  status: number
+  videoFace?: string
+  videoUrl?: string
+}
