@@ -17,7 +17,7 @@ const Index = ({ list, current, subCurrent, clickTab, clickSubTab }) => {
             {item.seriesName}
           </Text>
           {current === item.seriesId &&
-            item.dishSeriesList.map(item => (
+            item.dishSeriesList?.map(item => (
               <View
                 key={item.seriesId}
                 className={`sub-item ${subCurrent === item.seriesId ? 'sub-active' : ''}`}

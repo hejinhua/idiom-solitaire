@@ -18,7 +18,7 @@ export type BannerType = {
 }
 
 export type DishSeriesType = {
-  dishSeriesList: Array<{
+  dishSeriesList?: Array<{
     seriesId: number
     seriesPid: number
     seriesName: string

@@ -14,6 +14,16 @@ import httpRequest from './request'
 export const getCompanyList = data => httpRequest.get('company/list', data, false)
 
 /**
+ * @description 企业微信客服二维码
+ */
+export const getQrImage = () => httpRequest.get('config/enterpriseWeChatImg')
+
+/**
+ * @description 客服电话
+ */
+export const getServicePhone = () => httpRequest.get('config/servicePhone')
+
+/**
  * @description banner列表
  * @param {1|2} bannerType
  * @return {list}
@@ -32,6 +42,7 @@ export const getDishSeriesList = () => httpRequest.get('dish/series')
  * @param {number} seriesId
  * @param {number} pageNo
  * @param {number} pageSize
+ * @param {1} newDish
  * @return {list}
  */
 export const getDishList = data => httpRequest.get('dish/list', data)
@@ -41,16 +52,6 @@ export const getDishList = data => httpRequest.get('dish/list', data)
  * @param {number} dishId
  */
 export const getDishDetail = data => httpRequest.get('dish/detail', data)
-
-/**
- * @description 企业微信客服二维码
- */
-export const getQrImage = () => httpRequest.get('config/enterpriseWeChatImg')
-
-/**
- * @description 客服电话
- */
-export const getServicePhone = () => httpRequest.get('config/servicePhone')
 
 /**
  * @description 预约试菜
