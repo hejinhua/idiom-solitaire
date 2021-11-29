@@ -1,7 +1,7 @@
 import path from 'path'
 
 const config = {
-  projectName: 'demo',
+  projectName: 'dowin-wx',
   date: '2021-11-15',
   designWidth: 750,
   deviceRatio: {
