@@ -1,4 +1,4 @@
-import React, { Fragment, useMemo, useState } from 'react'
+import React, { Fragment, useMemo, useState, useEffect } from 'react'
 import { View, Text, Input, Image, ScrollView } from '@tarojs/components'
 
 import './index.styl'
@@ -18,14 +18,13 @@ const Index = () => {
   const [type, setType] = useState(1)
   const [hasMore, setHasMore] = useState(true)
   const [noResult, setNoResult] = useState(false)
+  let searchHistoryList = Taro.getStorageSync('searchHistoryList') || []
   const [list, setList] = useState<Array<DishType> | Array<MaterialType>>([])
-  const searchHistoryList = Taro.getStorageSync('searchHistoryList')
   const onChange = e => {
     const { value } = e.detail
     setValue(value)
-    handleSearch(value)
   }
-  const handleSearch = value => {
+  const handleSearch = (value, type) => {
     if (!value) {
       setList([])
       return
@@ -34,9 +33,9 @@ const Index = () => {
     pageNo = 1
     setHasMore(true)
     setNoResult(false)
-    loadList(value)
+    loadList(value, type)
   }
-  const loadList = value => {
+  const loadList = (value, type) => {
     let api = getDishList
     let params: any = { pageNo, pageSize }
     if (type === 1) {
@@ -46,25 +45,26 @@ const Index = () => {
       api = getMaterialList
     }
     api(params).then(res => {
-      let list = res.data?.list || []
-      setHasMore(list.length === pageSize)
-      setList(list)
-      setNoResult(list.length === 0)
+      let data = res.data?.list || []
+      setHasMore(data.length === pageSize)
+      let newList = pageNo === 1 ? data : [...list, ...data]
+      setList(newList)
+      setNoResult(newList.length === 0)
     })
   }
   const handleType = type => {
     setType(type)
-    handleSearch(value)
+    handleSearch(value, type)
   }
   const loadMore = () => {
     if (hasMore) {
       pageNo++
-      loadList(value)
+      loadList(value, type)
     }
   }
   const handleHistory = value => {
     setValue(value)
-    handleSearch(value)
+    handleSearch(value, type)
   }
   const handleDeleteHistory = () => {
     Taro.removeStorageSync('searchHistoryList')
@@ -86,10 +86,19 @@ const Index = () => {
               value={value}
               onInput={onChange}
               maxlength={30}
-              onConfirm={handleSearch}
+              onConfirm={() => {
+                handleSearch(value, type)
+              }}
             />
           </View>
-          <Text className='search-text'>搜索</Text>
+          <Text
+            className='search-text'
+            onClick={() => {
+              handleSearch(value, type)
+            }}
+          >
+            搜索
+          </Text>
         </View>
         {searchHistoryList && (
           <Fragment>
