@@ -7,6 +7,9 @@ import Button from '@/components/Button'
 import QrModal from '@/components/QrModal'
 
 import './index.styl'
+import passwordIcon from '@/assets/icons/password.png'
+import phoneIcon from '@/assets/icons/phone.png'
+import logoIcon from '@/assets/icons/logo.png'
 
 const Index = () => {
   const [data, setData] = useState({ phone: Taro.getStorageSync('phone') || '', password: '' })
@@ -43,10 +46,16 @@ const Index = () => {
   }
   return (
     <View className='wrapper'>
-      <View className='bg' />
+      <View className='bg'>
+        <Image src={logoIcon} className='logo' />
+        <View className='logo-text flex-y'>
+          <Text>Hi~ </Text>
+          <Text>欢迎来到多味研创！</Text>
+        </View>
+      </View>
       <View className='form'>
         <View className='input-wrapper'>
-          <Image src='' className='input-icon' />
+          <Image src={phoneIcon} className='input-icon' />
           <Input
             value={data.phone}
             type='number'
@@ -57,7 +66,7 @@ const Index = () => {
           />
         </View>
         <View className='input-wrapper'>
-          <Image src='' className='input-icon' />
+          <Image src={passwordIcon} className='input-icon' />
           <Input
             type='text'
             password
