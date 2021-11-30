@@ -1,6 +1,7 @@
 export default {
   pages: [
     'pages/index/index',
+    'pages/dish/index',
     'pages/login/index',
     'pages/register/index',
     'pages/material/index',
@@ -16,8 +17,8 @@ export default {
   tabBar: {
     list: [
       {
-        pagePath: 'pages/index/index',
-        text: '首页'
+        pagePath: 'pages/dish/index',
+        text: '菜单'
       },
       {
         pagePath: 'pages/material/index',

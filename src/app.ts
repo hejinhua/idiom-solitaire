@@ -4,14 +4,6 @@ import Taro from '@tarojs/taro'
 import './app.styl'
 
 class App extends Component {
-  onLaunch() {
-    const token = Taro.getStorageSync('token')
-    if (!token) {
-      Taro.redirectTo({
-        url: '/pages/login/index'
-      })
-    }
-  }
   componentDidMount() {
     const updateManager = Taro.getUpdateManager()
     updateManager.onCheckForUpdate(function(res) {
