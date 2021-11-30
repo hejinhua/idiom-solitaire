@@ -1,4 +1,4 @@
-import React, { Fragment, useMemo, useState, useEffect } from 'react'
+import React, { Fragment, useMemo, useState } from 'react'
 import { View, Text, Input, Image, ScrollView } from '@tarojs/components'
 
 import './index.styl'
