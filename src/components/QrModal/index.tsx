@@ -10,6 +10,7 @@ import Button from '../Button'
 import { getGlobalData, setGlobalData } from '@/utils/global-data'
 
 import './index.styl'
+import closeIcon from '@/assets/icons/close.png'
 
 const Index = ({ visible, onClose }) => {
   if (!visible) return null
@@ -33,10 +34,10 @@ const Index = ({ visible, onClose }) => {
   return (
     <View className='mask flex-center'>
       <View className='modal'>
-        <Image src={img} className='qr' />
+        <Image src={img} className='qr' mode='widthFix' />
         <Button text='立即添加企业微信' size='normal' onClick={handleClick} style='margin-top: 5px;' />
       </View>
-      <Image src='' className='close' onClick={onClose} />
+      <Image src={closeIcon} className='close' onClick={onClose} />
     </View>
   )
 }

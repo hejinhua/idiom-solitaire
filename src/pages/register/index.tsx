@@ -1,12 +1,13 @@
 import React, { useState, useMemo } from 'react'
 import { useRouter } from '@tarojs/taro'
-import { View, Text, Input, Picker } from '@tarojs/components'
+import { View, Text, Input, Picker, Image } from '@tarojs/components'
 import { isMobile, pageToLogin, showToast } from '@/utils/utils'
 import { register, updateRegisterInfo } from '@/services/user'
 import { getCompanyList } from '@/services/api'
 import { CompanyType } from '@/constants/commonTypes'
 import Button from '@/components/Button'
 import { getGlobalData } from '@/utils/global-data'
+import logoIcon from '@/assets/icons/logo.png'
 
 import './index.styl'
 
@@ -94,7 +95,13 @@ const Index = () => {
   }
   return (
     <View className='wrapper'>
-      <View className='bg' />
+      <View className='bg'>
+        <Image src={logoIcon} className='logo' />
+        <View className='logo-text flex-y'>
+          <Text>Hi~ </Text>
+          <Text>欢迎注册</Text>
+        </View>
+      </View>
       <View className='form'>
         <View className='title'>公司信息</View>
         <View className='input-wrapper'>
