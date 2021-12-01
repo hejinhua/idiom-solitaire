@@ -1,5 +1,5 @@
 import React, { useMemo, useEffect, useState } from 'react'
-import { View, ScrollView } from '@tarojs/components'
+import { View, ScrollView, Image, Text } from '@tarojs/components'
 import Banner from '@/components/Banner'
 import { getDishSeriesList, getDishList } from '@/services/api'
 import { getGlobalData } from '@/utils/global-data'
@@ -9,10 +9,11 @@ import { pageSize } from '@/constants/constants'
 import DishList from '@/components/DishList'
 
 import './index.styl'
+import logoIcon from '@/assets/icons/logo.png'
 
 let pageNo = 1
 const Index = () => {
-  const { bottom } = useMemo(() => getGlobalData('capsuleInfo'), [])
+  const { bottom, top, height } = useMemo(() => getGlobalData('capsuleInfo'), [])
   const [seriesList, setSeriesList] = useState<Array<SeriesType>>([])
   const [dishList, setDishList] = useState<Array<DishType>>([])
   const [current, setCurrent] = useState<number | undefined>()
@@ -77,7 +78,14 @@ const Index = () => {
   }
   return (
     <View className='wrapper'>
-      <View className='bg' />
+      <View className='bg'>
+        <View className='title' style={`padding-top: ${top}px; height: ${height}px`}>
+          <Image src={logoIcon} className='logo' />
+          <View className='logo-text flex-y'>
+            <Text>多味研创</Text>
+          </View>
+        </View>
+      </View>
       <View className='content' style={{ top: `${bottom + 19}px` }}>
         <Banner bannerType={1} />
         <View className='flex-x'>
