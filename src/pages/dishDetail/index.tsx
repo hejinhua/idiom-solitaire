@@ -9,6 +9,7 @@ import Button from '@/components/Button'
 import { customerService, formatPrice, toPage } from '@/utils/utils'
 
 import './index.styl'
+import serviceIcon from '@/assets/icons/contact-grey.png'
 
 const Index = () => {
   const { dishId } = useRouter()?.params || {}
@@ -43,7 +44,7 @@ const Index = () => {
           </View>
         )}
       </Card>
-      <Card title='材料'>
+      <Card title='材料' showMore>
         <View className='table-header'>
           <Text className='w75'>主食材</Text>
           <Text className='w60'>售价</Text>
@@ -107,6 +108,7 @@ const Index = () => {
       </Card>
       <View className='footer'>
         <View className='service' onClick={customerService}>
+          <Image src={serviceIcon} className='service-icon' />
           <Text>客服</Text>
         </View>
         <Button text='预约试菜' size='normal' onClick={handleOrder} style='flex-grow:1' />

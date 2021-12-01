@@ -8,9 +8,10 @@ import Card from '@/components/Card'
 import Button from '@/components/Button'
 import { toPage } from '@/utils/utils'
 import QrModal from '@/components/QrModal'
+import { setGlobalData } from '@/utils/global-data'
 
 import './index.styl'
-import { setGlobalData } from '@/utils/global-data'
+import slashIcon from '@/assets/icons/yellow-slash.png'
 
 const Index = () => {
   const { materialId } = useRouter()?.params || {}
@@ -40,7 +41,7 @@ const Index = () => {
         <Text className='dish-name'>{data.materialName}</Text>
         {data.materialDesc && <Text className='dish-desc'>{data.materialDesc}</Text>}
       </View>
-      <Card title='原料信息'>
+      <Card title='原料信息' showMore>
         <View className='special'>
           <Text>供应商</Text>
           <Text className='link' onClick={data.supplierList ? handleSupplier : toogleVisible}>
@@ -77,7 +78,9 @@ const Index = () => {
         </ScrollView>
       </Card>
       <View className='detail flex-center'>
+        <Image src={slashIcon} className='slash' />
         <Text>商品详情</Text>
+        <Image src={slashIcon} className='slash' />
       </View>
       {data?.materialDetail?.split(',').map(item => (
         <Image key={item} src={item} className='detail-img' />

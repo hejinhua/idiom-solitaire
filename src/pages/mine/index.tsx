@@ -5,11 +5,17 @@ import { getGlobalData } from '@/utils/global-data'
 import { customerService, pageToLogin, toPage } from '@/utils/utils'
 
 import './index.styl'
+import slashIcon from '@/assets/icons/red-slash.png'
+import avatarIcon from '@/assets/icons/avatar.png'
+import contactIcon from '@/assets/icons/contact.png'
+import aboutIcon from '@/assets/icons/about.png'
+import exitIcon from '@/assets/icons/exit.png'
+import moreIcon from '@/assets/icons/more.png'
 
 const menuList = [
-  { icon: '', name: '关于多味', id: 'about' },
-  { icon: '', name: '联系多味', id: 'contact' },
-  { icon: '', name: '退出登录', id: 'logout' }
+  { icon: aboutIcon, name: '关于多味', id: 'about' },
+  { icon: contactIcon, name: '联系多味', id: 'contact' },
+  { icon: exitIcon, name: '退出登录', id: 'logout' }
 ]
 const Index = () => {
   const { customerName, phone } = useMemo(() => Taro.getStorageSync('userInfo'), [])
@@ -33,23 +39,24 @@ const Index = () => {
         我的
       </View>
       <View className='info-wrapper flex-x'>
-        <Image src='' className='face' />
+        <Image src={avatarIcon} className='face' />
         <View className='flex-y'>
           <Text className='name'>{customerName}</Text>
           <Text className='phone'>{phone}</Text>
         </View>
       </View>
       <View className='menu flex-grow-y'>
-        <View className='flex service'>
+        <View className='flex-x service'>
+          <Image src={slashIcon} className='slash' />
           <Text className='service-text'>我的服务</Text>
         </View>
         {menuList.map(item => (
           <View key={item.id} className='menu-item' onClick={() => clickMenu(item.id)}>
-            <View>
-              {/* <Image src={item.icon} /> */}
+            <View className='flex-center'>
+              <Image src={item.icon} className='menu-icon' />
               <Text>{item.name}</Text>
             </View>
-            {/* <Image /> */}
+            <Image src={moreIcon} className='more' />
           </View>
         ))}
       </View>

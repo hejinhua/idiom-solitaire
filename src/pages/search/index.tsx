@@ -1,7 +1,5 @@
 import React, { Fragment, useMemo, useState } from 'react'
 import { View, Text, Input, Image, ScrollView } from '@tarojs/components'
-
-import './index.styl'
 import { getGlobalData } from '@/utils/global-data'
 import { setStack, toPage } from '@/utils/utils'
 import Taro from '@tarojs/taro'
@@ -10,6 +8,12 @@ import { getDishList, getMaterialList } from '@/services/api'
 import DishList from '@/components/DishList'
 import { pageSize } from '@/constants/constants'
 import Button from '@/components/Button'
+
+import './index.styl'
+import searchIcon from '@/assets/icons/tabbar/search.png'
+import deleteIcon from '@/assets/icons/delete.png'
+import activeIcon from '@/assets/icons/active-search.png'
+import noData from '@/assets/images/no-data.png'
 
 let pageNo = 1
 const Index = () => {
@@ -73,12 +77,12 @@ const Index = () => {
     <View className='search flex-y'>
       <View className='bg' />
       <View className='flex-center title' style={`margin-top: ${top}px; height: ${height}px;`}>
-        我的
+        搜索
       </View>
       <View className='body flex-grow-y flex-y'>
         <View className='flex-x'>
           <View className='search-wrapper flex-x flex-grow-x'>
-            <Image src='' className='search-icon' />
+            <Image src={searchIcon} className='search-icon' />
             <Input
               placeholder='搜索'
               type='text'
@@ -104,7 +108,7 @@ const Index = () => {
           <Fragment>
             <View className='flex-between history'>
               <Text>搜索历史</Text>
-              <Image src='' className='search-icon' onClick={handleDeleteHistory} />
+              <Image src={deleteIcon} className='search-icon' onClick={handleDeleteHistory} />
             </View>
             <View className='history-wrapper'>
               {searchHistoryList.map(item => (
@@ -118,11 +122,13 @@ const Index = () => {
         {list.length > 0 && (
           <View className='flex-grow-y'>
             <View className='tab'>
-              <View className={`${type === 1 ? 'active' : ''}`} onClick={() => handleType(1)}>
+              <View className={`flex-y tab-item ${type === 1 ? 'active' : ''}`} onClick={() => handleType(1)}>
                 <Text>菜品</Text>
+                {type === 1 && <Image src={activeIcon} className='active-icon' />}
               </View>
-              <View className={`${type === 2 ? 'active' : ''}`} onClick={() => handleType(2)}>
+              <View className={`flex-y tab-item ${type === 2 ? 'active' : ''}`} onClick={() => handleType(2)}>
                 <Text>原料</Text>
+                {type === 2 && <Image src={activeIcon} className='active-icon' />}
               </View>
             </View>
             <ScrollView scrollY className='scroll-view' onScrollToLower={loadMore}>
@@ -132,9 +138,15 @@ const Index = () => {
         )}
         {noResult && (
           <View className='flex-grow-y flex-y flex-center'>
+            <Image src={noData} className='no-data' />
             <Text>搜索暂无结果</Text>
             <Text>前往菜单查看更多好物</Text>
-            <Button text='前往菜单' size='normal' style='width: 160px;' onClick={() => toPage('/pages/index/index')} />
+            <Button
+              text='前往菜单'
+              size='normal'
+              style='width: 160px;margin-top:20px;'
+              onClick={() => toPage('/pages/index/index')}
+            />
           </View>
         )}
       </View>

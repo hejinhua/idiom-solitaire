@@ -12,7 +12,7 @@ import './index.styl'
 
 let pageNo = 1
 const Index = () => {
-  const { bottom } = useMemo(() => getGlobalData('capsuleInfo'), [])
+  const { bottom, height, top } = useMemo(() => getGlobalData('capsuleInfo'), [])
   const [seriesList, setSeriesList] = useState<Array<SeriesType>>([])
   const [materialList, setMaterialList] = useState<Array<DishType>>([])
   const [current, setCurrent] = useState<number | undefined>()
@@ -78,6 +78,9 @@ const Index = () => {
   return (
     <View className='wrapper'>
       <View className='bg' />
+      <View className='flex-center title' style={`margin-top: ${top}px; height: ${height}px;`}>
+        原料
+      </View>
       <View className='contentm' style={{ top: `${bottom + 19}px` }}>
         <Banner bannerType={2} />
         <View className='flex-x'>

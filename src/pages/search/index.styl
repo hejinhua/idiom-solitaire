@@ -7,7 +7,8 @@
 .bg {
   width: 100%;
   height: 160px;
-  background-color: #FF4D4D;
+  background: url('../../assets/images/search-bg.png') no-repeat;
+  background-size: 100% 100%;
   position: absolute;
   z-index: -1;
   left: 0;
@@ -36,11 +37,12 @@
   align-items: center;
   padding: 0 32px;
   box-sizing: border-box;
+  align-items: center;
 }
 .search-icon {
   width: 26px;
   height: 26px;
-  background-color: #f5f5f5;  
+  margin-right: 6px;
 }
 .search-text {
   line-height: 60px;
@@ -66,13 +68,13 @@
 }
 .tab {
   width: 100%;
-  height: 76px;
+  height: 56px;
   display: flex;
   justify-content: space-around;
-  align-items: center;
   border-bottom: 1px solid #E2E2E2;
   background-color: #fff;  
   font-weight: bold;
+  line-height: 31px;
 }
 .active {
   color: #E55050;  
@@ -80,4 +82,15 @@
 }
 .scroll-view {
   flex-grow: 1;  
+}
+.active-icon {
+  width: 29px;
+  height: 14px;
+}
+.tab-item {
+  align-items: center;  
+}
+.no-data {
+  width: 437px;
+  height: 254px;  
 }

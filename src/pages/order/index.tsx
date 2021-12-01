@@ -53,6 +53,7 @@ const Index = () => {
     <View className='wrapper'>
       <View className='bg' />
       <View className='form'>
+        <View className='title'>我要预约</View>
         <Input
           type='text'
           placeholder='您的名字'

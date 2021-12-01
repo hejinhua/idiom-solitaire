@@ -15,29 +15,38 @@ export default {
     'pages/supplier/index'
   ],
   tabBar: {
+    color: '#666',
+    selectedColor: '#E55353',
     list: [
       {
         pagePath: 'pages/dish/index',
-        text: '菜单'
+        text: '菜单',
+        iconPath: 'assets/icons/tabbar/dish.png',
+        selectedIconPath: 'assets/icons/tabbar/dish-sel.png'
       },
       {
         pagePath: 'pages/material/index',
-        text: '原料'
+        text: '原料',
+        iconPath: 'assets/icons/tabbar/material.png',
+        selectedIconPath: 'assets/icons/tabbar/material-sel.png'
       },
       {
         pagePath: 'pages/search/index',
-        text: '搜索'
+        text: '搜索',
+        iconPath: 'assets/icons/tabbar/search.png',
+        selectedIconPath: 'assets/icons/tabbar/search-sel.png'
       },
       {
         pagePath: 'pages/mine/index',
-        text: '我的'
+        text: '我的',
+        iconPath: 'assets/icons/tabbar/mine.png',
+        selectedIconPath: 'assets/icons/tabbar/mine-sel.png'
       }
     ]
   },
   window: {
-    backgroundTextStyle: 'light',
+    backgroundTextStyle: 'dark',
     navigationBarBackgroundColor: '#fff',
-    navigationBarTitleText: 'WeChat',
     navigationBarTextStyle: 'black'
   }
 }

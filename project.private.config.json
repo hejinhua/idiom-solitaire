@@ -53,6 +53,12 @@
           "pathName": "pages/search/index",
           "query": "",
           "scene": null
+        },
+        {
+          "name": "pages/order/index",
+          "pathName": "pages/order/index",
+          "query": "dishName=%E7%95%AA%E8%8C%84%E8%8A%B1%E8%83%B6%E9%B2%8D%E9%B1%BC%E7%89%9B%E8%85%A9%E7%85%B22",
+          "scene": null
         }
       ]
     }
