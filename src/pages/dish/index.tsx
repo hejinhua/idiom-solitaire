@@ -79,9 +79,9 @@ const Index = () => {
           </View>
         </View>
       </View>
-      <View className='content' style={{ top: `${bottom + 19}px` }}>
+      <View className='content flex-y' style={{ top: `${bottom + 19}px`, height: `calc(100% - ${bottom + 19}px)` }}>
         <Banner bannerType={1} />
-        <View className='flex-x'>
+        <View className='flex-grow-y flex-x'>
           <Tab
             list={seriesList}
             current={current}

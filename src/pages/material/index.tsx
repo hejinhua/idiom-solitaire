@@ -74,9 +74,9 @@ const Index = () => {
       <View className='flex-center title' style={`margin-top: ${top}px; height: ${height}px;`}>
         原料
       </View>
-      <View className='contentm' style={{ top: `${bottom + 19}px` }}>
+      <View className='contentm flex-y' style={{ top: `${bottom + 19}px`, height: `calc(100% - ${bottom + 19}px)` }}>
         <Banner bannerType={2} />
-        <View className='flex-x'>
+        <View className='flex-grow-y flex-x'>
           <Tab
             list={seriesList}
             current={current}
