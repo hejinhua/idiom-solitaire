@@ -41,6 +41,9 @@ export type DishType = {
   dishId: number
   dishName: string
   dishDesc: string
+  newBeginTime: string
+  newDish: number
+  newEndTime: string
 }
 export type DishDetailType = {
   areaKey: string
@@ -89,6 +92,9 @@ export type MaterialType = {
   materialId: number
   materialName: string
   materialDesc: string
+  newBeginTime: string
+  newEndTime: string
+  newMaterial: number
 }
 export type MaterialDetailType = {
   materialBanner: string

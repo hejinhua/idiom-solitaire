@@ -89,3 +89,12 @@ export const setStack = (listName: string, listLength: number, data) => {
   Taro.setStorageSync(listName, list)
   return list
 }
+
+/**
+ * @description: 时间转时间戳
+ * @param {string} date 时间，不传的话默认为当前时间
+ */
+export const getTimestamp = (date?) => {
+  if (!date) return new Date().getTime()
+  return new Date(date.replace(/-/g, '/')).getTime()
+}

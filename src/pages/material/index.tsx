@@ -33,7 +33,7 @@ const Index = () => {
       } else {
         setCurrent(-1)
         setMaterialList(newList)
-        setHasMore(newList.length === pageNo)
+        setHasMore(newList.length === pageSize)
       }
     })
   }, [setSeriesList])
@@ -66,7 +66,7 @@ const Index = () => {
     getMaterialList(params).then(res => {
       const list = res?.data?.list || []
       setMaterialList(list)
-      setHasMore(list.length === pageNo)
+      setHasMore(list.length === pageSize)
     })
   }
   const loadMore = () => {

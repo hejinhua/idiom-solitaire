@@ -34,7 +34,7 @@ const Index = () => {
       } else {
         setCurrent(-1)
         setDishList(newList)
-        setHasMore(newList.length === pageNo)
+        setHasMore(newList.length === pageSize)
       }
     })
   }, [setSeriesList])
@@ -67,7 +67,7 @@ const Index = () => {
     getDishList(params).then(res => {
       const list = res?.data?.list || []
       setDishList(list)
-      setHasMore(list.length === pageNo)
+      setHasMore(list.length === pageSize)
     })
   }
   const loadMore = () => {

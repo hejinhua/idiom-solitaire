@@ -9,6 +9,7 @@ import { BannerType } from '@/constants/commonTypes'
 import { getBannerList } from '@/services/api'
 
 import './index.styl'
+import { toPage } from '@/utils/utils'
 
 const Index = ({ bannerType }) => {
   const [list, setList] = useState<Array<BannerType>>([])
@@ -17,12 +18,15 @@ const Index = ({ bannerType }) => {
       setList(res?.data || [])
     })
   }, [setList])
-
+  const handleClick = item => {
+    const { linkId, linkType } = item
+    toPage(linkType === 1 ? `pages/dishDetail/index?dishId=` : `/pages/materialDetail/index?materialId=` + linkId)
+  }
   return (
     <Swiper className='banner'>
       {list.map(item => (
         <SwiperItem key={item.bannerId}>
-          <Image src={item.bannerImg} />
+          <Image src={item.bannerImg} onClick={() => handleClick(item)} />
         </SwiperItem>
       ))}
     </Swiper>
