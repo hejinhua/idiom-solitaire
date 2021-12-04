@@ -34,7 +34,7 @@ export type SeriesType = {
   seriesName: string
   seriesPid: 0
   sort: number
-  status: string
+  status: String
 }
 export type DishType = {
   dishFace: string
