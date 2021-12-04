@@ -1,5 +1,5 @@
 import React, { useMemo, useEffect, useState, Fragment } from 'react'
-import { View, ScrollView } from '@tarojs/components'
+import { View, ScrollView, Text } from '@tarojs/components'
 import Banner from '@/components/Banner'
 import { getMaterialSeriesList, getMaterialList } from '@/services/api'
 import { getGlobalData } from '@/utils/global-data'
@@ -88,7 +88,8 @@ const Index = () => {
             {data.map(item => (
               <Fragment>
                 <View className='series-title' id={`series${item.seriesId}`}>
-                  {item.seriesName}
+                  <Text>{item.seriesName}</Text>
+                  <Text className='dashed-line' />
                 </View>
                 <DishList list={item?.list} />
               </Fragment>

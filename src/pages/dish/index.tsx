@@ -93,7 +93,8 @@ const Index = () => {
             {data.map(item => (
               <Fragment>
                 <View className='series-title' id={`series${item.seriesId}`}>
-                  {item.seriesName}
+                  <Text>{item.seriesName}</Text>
+                  <Text className='dashed-line' />
                 </View>
                 <DishList list={item?.list} />
               </Fragment>
