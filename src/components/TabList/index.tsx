@@ -3,13 +3,13 @@
  * @Date: 2021-11-20 17:51:12
  * @Description: banner+左侧tab+list
  */
-import React, { FC, Fragment, useMemo, useCallback, useState } from 'react'
+import React, { FC, useMemo, useCallback, useState, useEffect } from 'react'
 import { View, Text, Image, ScrollView } from '@tarojs/components'
 import { SeriesType, DishType, MaterialType } from '@/constants/commonTypes'
 import { getTimestamp, toPage } from '@/utils/utils'
 import Banner from '@/components/Banner'
 import { getGlobalData } from '@/utils/global-data'
-import Taro from '@tarojs/taro'
+import Taro, { useReady } from '@tarojs/taro'
 
 import './index.styl'
 import activeTabImg from '@/assets/icons/active-tab.png'
@@ -27,6 +27,18 @@ const Index: FC<Props> = ({ seriesList, current, subCurrent, clickTab, clickSubT
   const { bottom } = useMemo(() => getGlobalData('capsuleInfo'), [])
   const [scrollTop, setScrollTop] = useState(0)
   const [topMap, setTopMap] = useState<any>({})
+  useReady(() => {
+    Taro.nextTick(() => {
+      initScrollView()
+    })
+  })
+  useEffect(() => {
+    if (list?.length > 0) {
+      Taro.nextTick(() => {
+        getElementTop()
+      })
+    }
+  }, [list])
   const handleClick = item => {
     toPage(
       item.dishId
@@ -67,22 +79,17 @@ const Index: FC<Props> = ({ seriesList, current, subCurrent, clickTab, clickSubT
   }, [])
   const onScroll = useCallback(e => {
     let top = e.detail.scrollTop
-    let index = 0
-    /* 查找当前滚动距离 */
-    // for (let i = (topArr.length - 1); i >= 0; i--) {
-    //     /* 在部分安卓设备上，因手机逻辑分辨率与rpx单位计算不是整数，滚动距离与有误差，增加2px来完善该问题 */
-    //     if ((top + 2) >= topArr[i]) {
-    //         index = i;
-    //         break;
-    //     }
-    // }
-    // console.log('fyq'+index)
-    // let leftIndex = (index < 0 ? 0 : index);
-
-    // this.setState({
-    //     leftIndex,
-    //     leftIntoView: `left-${leftIndex > 3 ? (leftIndex - 3) : 0}`
-    // })
+    let newSub
+    for (let i in topMap) {
+      // 在部分安卓设备上，因手机逻辑分辨率与rpx单位计算不是整数，滚动距离与有误差，增加2px来完善该问题
+      if (top + 2 >= topMap[i]) {
+        newSub = i
+        break
+      }
+    }
+    if (newSub) {
+      clickSubTab({ seriesId: newSub })
+    }
   }, [])
   return (
     <View className='content flex-y' style={{ top: `${bottom + 19}px`, height: `calc(100% - ${bottom + 19}px)` }}>
