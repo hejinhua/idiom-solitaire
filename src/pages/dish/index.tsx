@@ -1,17 +1,15 @@
-import React, { useMemo, useEffect, useState, Fragment } from 'react'
-import { View, ScrollView, Image, Text } from '@tarojs/components'
-import Banner from '@/components/Banner'
+import React, { useMemo, useEffect, useState } from 'react'
+import { View, Image, Text } from '@tarojs/components'
 import { getDishSeriesList, getDishList } from '@/services/api'
 import { getGlobalData } from '@/utils/global-data'
-import Tab from '@/components/Tab'
+import TabList from '@/components/TabList'
 import { SeriesType } from '@/constants/commonTypes'
-import DishList from '@/components/DishList'
 
 import './index.styl'
 import logoIcon from '@/assets/icons/logo.png'
 
 const Index = () => {
-  const { bottom, top, height } = useMemo(() => getGlobalData('capsuleInfo'), [])
+  const { top, height } = useMemo(() => getGlobalData('capsuleInfo'), [])
   const [seriesList, setSeriesList] = useState<Array<SeriesType>>([])
   const [data, setData] = useState<any>([])
   const [current, setCurrent] = useState<number | undefined>()
@@ -79,29 +77,15 @@ const Index = () => {
           </View>
         </View>
       </View>
-      <View className='content flex-y' style={{ top: `${bottom + 19}px`, height: `calc(100% - ${bottom + 19}px)` }}>
-        <Banner bannerType={1} />
-        <View className='flex-grow-y flex-x'>
-          <Tab
-            list={seriesList}
-            current={current}
-            subCurrent={subCurrent}
-            clickTab={clickTab}
-            clickSubTab={clickSubTab}
-          />
-          <ScrollView scrollY className='flex-grow-x' scrollIntoView={`series${subCurrent}`}>
-            {data.map(item => (
-              <Fragment>
-                <View className='series-title' id={`series${item.seriesId}`}>
-                  <Text>{item.seriesName}</Text>
-                  <Text className='dashed-line' />
-                </View>
-                <DishList list={item?.list} />
-              </Fragment>
-            ))}
-          </ScrollView>
-        </View>
-      </View>
+      <TabList
+        seriesList={seriesList}
+        current={current}
+        subCurrent={subCurrent}
+        clickSubTab={clickSubTab}
+        clickTab={clickTab}
+        list={data}
+        bannerType={1}
+      />
     </View>
   )
 }
