@@ -9,6 +9,7 @@ import Button from '@/components/Button'
 import { toPage } from '@/utils/utils'
 import QrModal from '@/components/QrModal'
 import { setGlobalData } from '@/utils/global-data'
+import { baseCDNUrl } from '@/services/baseUrl'
 
 import './index.styl'
 import slashIcon from '@/assets/icons/yellow-slash.png'
@@ -71,7 +72,7 @@ const Index = () => {
         <ScrollView scrollX className='relation-view'>
           {data.relationList?.map(item => (
             <View key={item.relationId} className='relation-item' onClick={() => handleDish(item.linkId)}>
-              <Image src={item.relationImg} className='relation-img' />
+              <Image src={baseCDNUrl + item.relationImg} className='relation-img' />
               <Text className='relation-text'>{item.relationName}</Text>
             </View>
           ))}
@@ -83,7 +84,7 @@ const Index = () => {
         <Image src={slashIcon} className='slash' />
       </View>
       {data?.materialDetail?.split(',').map(item => (
-        <Image key={item} src={item} className='detail-img' />
+        <Image key={baseCDNUrl + item} src={item} className='detail-img' />
       ))}
       <View className='footer'>
         <Button text='了解更多供应信息' size='normal' onClick={data.supplierList ? handleSupplier : toogleVisible} />

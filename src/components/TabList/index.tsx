@@ -10,6 +10,7 @@ import { getTimestamp, toPage } from '@/utils/utils'
 import Banner from '@/components/Banner'
 import { getGlobalData } from '@/utils/global-data'
 import Taro, { useReady } from '@tarojs/taro'
+import { baseCDNUrl } from '@/services/baseUrl'
 
 import './index.styl'
 import activeTabImg from '@/assets/icons/active-tab.png'
@@ -149,7 +150,7 @@ const Index: FC<Props> = ({ seriesList, current, subCurrent, clickTab, clickSubT
                       className='list-item flex-x'
                       onClick={() => handleClick(item)}
                     >
-                      <Image src={item.dishFace || item.materialFace} className='face' />
+                      <Image src={baseCDNUrl + (item.dishFace || item.materialFace)} className='face' />
                       <View className='flex-grow-x flex-y'>
                         <View className='name-wrapper'>
                           <Text className='name two-line-text'>{item.dishName || item.materialName}</Text>

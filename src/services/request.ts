@@ -6,8 +6,8 @@
 
 import Taro from '@tarojs/taro'
 import { endLoading, startLoading } from '@/utils/loading-util'
-import getBaseUrl from './baseUrl'
 import interceptors from './interceptors'
+import { baseUrl } from './baseUrl'
 
 interceptors.forEach(interceptorItem => Taro.addInterceptor(interceptorItem))
 
@@ -20,11 +20,10 @@ type OptionType = {
 class httpRequest {
   baseOptions(params, method = 'GET') {
     let { url, data, loading = true } = params
-    const BASE_URL = getBaseUrl()
     let contentType = 'application/json'
     contentType = params.contentType || contentType
     const option: OptionType = {
-      url: BASE_URL + url,
+      url: baseUrl + url,
       data: data,
       method: method,
       header: {

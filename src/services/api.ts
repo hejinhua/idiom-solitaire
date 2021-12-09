@@ -85,3 +85,8 @@ export const getMaterialList = data => httpRequest.get('material/list', data)
  * @param {number} materialId
  */
 export const getMaterialDetail = data => httpRequest.get('material/detail', data)
+
+/**
+ * @description 获取关于图片
+ */
+export const getAboutDesc = () => httpRequest.get('config/companyDescImg')

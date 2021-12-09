@@ -6,9 +6,10 @@
 import React, { FC } from 'react'
 import { View, Text, Image } from '@tarojs/components'
 import { DishType, MaterialType } from '@/constants/commonTypes'
+import { baseCDNUrl } from '@/services/baseUrl'
+import { getTimestamp, toPage } from '@/utils/utils'
 
 import './index.styl'
-import { getTimestamp, toPage } from '@/utils/utils'
 
 type Props = {
   list: Array<DishType> | Array<MaterialType>
@@ -34,7 +35,7 @@ const Index: FC<Props> = ({ list }) => {
         }
         return (
           <View key={item.dishId || item.materialId} className='list-item flex-x' onClick={() => handleClick(item)}>
-            <Image src={item.dishFace || item.materialFace} className='face' />
+            <Image src={baseCDNUrl + (item.dishFace || item.materialFace)} className='face' />
             <View className='flex-grow-x flex-y'>
               <View className='name-wrapper'>
                 <Text className='name two-line-text'>{item.dishName || item.materialName}</Text>

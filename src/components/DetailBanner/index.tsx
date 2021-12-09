@@ -5,6 +5,7 @@
  */
 import React, { useState, useEffect, FC } from 'react'
 import { Swiper, SwiperItem, Image, Video } from '@tarojs/components'
+import { baseCDNUrl } from '@/services/baseUrl'
 
 import './index.styl'
 
@@ -23,12 +24,12 @@ const Index: FC<props> = ({ banner, videoFace, videoUrl }) => {
     <Swiper className='detail-banner'>
       {videoUrl && (
         <SwiperItem>
-          <Video src={videoUrl} poster={videoFace} />
+          <Video src={baseCDNUrl + videoUrl} poster={videoFace} />
         </SwiperItem>
       )}
       {list.map(item => (
         <SwiperItem key={item}>
-          <Image src={item} />
+          <Image src={baseCDNUrl + item} />
         </SwiperItem>
       ))}
     </Swiper>

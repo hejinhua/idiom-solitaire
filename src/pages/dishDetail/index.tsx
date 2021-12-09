@@ -7,6 +7,7 @@ import DetailBanner from '@/components/DetailBanner'
 import Card from '@/components/Card'
 import Button from '@/components/Button'
 import { customerService, formatPrice, toPage } from '@/utils/utils'
+import { baseCDNUrl } from '@/services/baseUrl'
 
 import './index.styl'
 import serviceIcon from '@/assets/icons/contact-grey.png'
@@ -93,14 +94,14 @@ const Index = () => {
       </Card>
       <Card title='操作步骤'>
         {data.productionStep?.split(',').map(item => (
-          <Image key={item} src={item} className='stepImg' />
+          <Image key={baseCDNUrl + item} src={item} className='stepImg' />
         ))}
       </Card>
       <Card title='应用场景'>
         <ScrollView scrollX className='relation-view'>
           {data.relationList.map(item => (
             <View key={item.relationId} className='relation-item'>
-              <Image src={item.relationImg} className='relation-img' />
+              <Image src={baseCDNUrl + item.relationImg} className='relation-img' />
               <Text className='relation-text'>{item.relationName}</Text>
             </View>
           ))}

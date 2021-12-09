@@ -4,14 +4,13 @@
  * @Description: baseUrl
  */
 
-const getBaseUrl = () => {
-  let BASE_URL = 'https://www.bzchao.com/web9000/api/'
-  // if (process.env.NODE_ENV === 'development') {
-  //   BASE_URL = ''
-  // } else {
-  //   BASE_URL = ''
-  // }
-  return BASE_URL
-}
+let baseUrl = 'https://www.bzchao.com/web9000/api/'
+// if (process.env.NODE_ENV === 'development') {
+//   BASE_URL = ''
+// } else {
+//   BASE_URL = ''
+// }
 
-export default getBaseUrl
+let baseCDNUrl = ''
+
+export default { baseUrl, baseCDNUrl }

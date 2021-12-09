@@ -7,9 +7,10 @@ import React, { useState, useEffect } from 'react'
 import { Swiper, SwiperItem, Image } from '@tarojs/components'
 import { BannerType } from '@/constants/commonTypes'
 import { getBannerList } from '@/services/api'
+import { toPage } from '@/utils/utils'
+import { baseCDNUrl } from '@/services/baseUrl'
 
 import './index.styl'
-import { toPage } from '@/utils/utils'
 
 const Index = ({ bannerType }) => {
   const [list, setList] = useState<Array<BannerType>>([])
@@ -26,7 +27,7 @@ const Index = ({ bannerType }) => {
     <Swiper className='banner'>
       {list.map(item => (
         <SwiperItem key={item.bannerId}>
-          <Image src={item.bannerImg} onClick={() => handleClick(item)} />
+          <Image src={baseCDNUrl + item.bannerImg} onClick={() => handleClick(item)} />
         </SwiperItem>
       ))}
     </Swiper>
