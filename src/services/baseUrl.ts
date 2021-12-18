@@ -11,6 +11,6 @@ let baseUrl = 'https://www.bzchao.com/web9000/api/'
 //   BASE_URL = ''
 // }
 
-let baseCDNUrl = ''
+let baseCDNUrl = 'https://dwyc.oss-cn-chengdu.aliyuncs.com/'
 
 export default { baseUrl, baseCDNUrl }
