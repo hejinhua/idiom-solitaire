@@ -24,22 +24,23 @@ type Props = {
   list: Array<DishType> | Array<MaterialType>
   bannerType: 1 | 2
 }
+let scrollViewTop = 0
 const Index: FC<Props> = ({ seriesList, current, subCurrent, clickTab, clickSubTab, list, bannerType }) => {
   const { bottom } = useMemo(() => getGlobalData('capsuleInfo'), [])
-  const [scrollTop, setScrollTop] = useState(0)
   const [topMap, setTopMap] = useState<any>({})
+  const [scrollTop, setScrollTop] = useState(0)
   useReady(() => {
     Taro.nextTick(() => {
       initScrollView()
     })
   })
   useEffect(() => {
-    if (list?.length > 0) {
+    if (list?.length > 0 && seriesList?.length > 0) {
       Taro.nextTick(() => {
         getElementTop()
       })
     }
-  }, [list])
+  }, [list, seriesList])
   const handleClick = item => {
     toPage(
       item.dishId
@@ -52,7 +53,7 @@ const Index: FC<Props> = ({ seriesList, current, subCurrent, clickTab, clickSubT
       let view = Taro.createSelectorQuery().select('#scroll-panel')
       view
         .boundingClientRect(res => {
-          setScrollTop(res.top)
+          scrollViewTop = res.top
           Taro.nextTick(() => {
             // @ts-ignore
             resolve()
@@ -61,7 +62,7 @@ const Index: FC<Props> = ({ seriesList, current, subCurrent, clickTab, clickSubT
         .exec()
     })
   }, [])
-  const getElementTop = useCallback(() => {
+  const getElementTop = () => {
     new Promise(resolve => {
       let view = Taro.createSelectorQuery().selectAll('.main-list')
       view
@@ -70,28 +71,27 @@ const Index: FC<Props> = ({ seriesList, current, subCurrent, clickTab, clickSubT
         })
         .exec()
     }).then((res: any) => {
-      let topMap = res.map((item, index) => {
-        return {
-          [seriesList[index].seriesId]: item.top - scrollTop /* 减去滚动容器距离顶部的距离 */
-        }
+      let topMap = {}
+      res.forEach((item, index) => {
+        topMap[list[index].seriesId] = item.top - scrollViewTop /* 减去滚动容器距离顶部的距离 */
       })
       setTopMap(topMap)
     })
-  }, [])
-  const onScroll = useCallback(e => {
+  }
+  const onScroll = e => {
     let top = e.detail.scrollTop
     let newSub
-    for (let i in topMap) {
-      // 在部分安卓设备上，因手机逻辑分辨率与rpx单位计算不是整数，滚动距离与有误差，增加2px来完善该问题
-      if (top + 2 >= topMap[i]) {
-        newSub = i
+    let keys = Object.keys(topMap)
+    for (let i = keys.length - 1; i >= 0; i--) {
+      if (top + 2 >= topMap[keys[i]]) {
+        newSub = parseInt(keys[i])
         break
       }
     }
-    if (newSub) {
+    if (newSub !== subCurrent) {
       clickSubTab({ seriesId: newSub })
     }
-  }, [])
+  }
   return (
     <View className='content flex-y' style={{ top: `${bottom + 19}px`, height: `calc(100% - ${bottom + 19}px)` }}>
       <Banner bannerType={bannerType} />
@@ -112,7 +112,10 @@ const Index: FC<Props> = ({ seriesList, current, subCurrent, clickTab, clickSubT
                     <View
                       key={item.seriesId}
                       className={`sub-item ${subCurrent === item.seriesId ? 'sub-active' : ''}`}
-                      onClick={() => clickSubTab(item)}
+                      onClick={() => {
+                        clickSubTab(item)
+                        setScrollTop(topMap[item.seriesId])
+                      }}
                     >
                       {item.seriesName}
                     </View>
@@ -124,9 +127,10 @@ const Index: FC<Props> = ({ seriesList, current, subCurrent, clickTab, clickSubT
         <ScrollView
           scrollY
           className='flex-grow-x'
-          scrollIntoView={`series${subCurrent}`}
+          // scrollIntoView={`series${subCurrent}`}
           id='scroll-panel'
           onScroll={onScroll}
+          scrollTop={scrollTop}
         >
           {list.map(item => (
             <View className='main-list'>
@@ -135,7 +139,7 @@ const Index: FC<Props> = ({ seriesList, current, subCurrent, clickTab, clickSubT
                 <Text className='dashed-line' />
               </View>
               <View className='list'>
-                {list.map(item => {
+                {item.list.map(item => {
                   let isNew = false
                   const { newDish, newMaterial, newBeginTime, newEndTime } = item
                   if (newDish === 1 || newMaterial === 1) {

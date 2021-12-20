@@ -43,7 +43,7 @@ const Index = () => {
   }
   const clickSubTab = item => {
     setSubCurrent(item.seriesId)
-    loadDishList(current)
+    // loadDishList(current)
   }
   const loadDishList = seriesPid => {
     getDishList({ seriesPid }).then(res => {
