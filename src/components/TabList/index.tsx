@@ -3,7 +3,7 @@
  * @Date: 2021-11-20 17:51:12
  * @Description: banner+左侧tab+list
  */
-import React, { FC, useMemo, useCallback, useState, useEffect } from 'react'
+import React, { FC, useMemo, useCallback, useState, useEffect, useRef } from 'react'
 import { View, Text, Image, ScrollView } from '@tarojs/components'
 import { SeriesType, DishType, MaterialType } from '@/constants/commonTypes'
 import { getTimestamp, toPage } from '@/utils/utils'
@@ -29,6 +29,7 @@ const Index: FC<Props> = ({ seriesList, current, subCurrent, clickTab, clickSubT
   const { bottom } = useMemo(() => getGlobalData('capsuleInfo'), [])
   const [topMap, setTopMap] = useState<any>({})
   const [scrollTop, setScrollTop] = useState(0)
+  const stopListening = useRef(false)
   useReady(() => {
     Taro.nextTick(() => {
       initScrollView()
@@ -36,6 +37,7 @@ const Index: FC<Props> = ({ seriesList, current, subCurrent, clickTab, clickSubT
   })
   useEffect(() => {
     if (list?.length > 0 && seriesList?.length > 0) {
+      stopListening.current = false
       Taro.nextTick(() => {
         getElementTop()
       })
@@ -73,12 +75,16 @@ const Index: FC<Props> = ({ seriesList, current, subCurrent, clickTab, clickSubT
     }).then((res: any) => {
       let topMap = {}
       res.forEach((item, index) => {
+        // @ts-ignore
         topMap[list[index].seriesId] = item.top - scrollViewTop /* 减去滚动容器距离顶部的距离 */
       })
       setTopMap(topMap)
     })
   }
   const onScroll = e => {
+    if (stopListening.current) {
+      return
+    }
     let top = e.detail.scrollTop
     let newSub
     let keys = Object.keys(topMap)
@@ -103,7 +109,11 @@ const Index: FC<Props> = ({ seriesList, current, subCurrent, clickTab, clickSubT
                 {current === item.seriesId && <Image src={activeTabImg} className='active-img' />}
                 <Text
                   className={`tab-text ${current === item.seriesId ? 'active-text' : ''}`}
-                  onClick={() => clickTab(item)}
+                  onClick={() => {
+                    stopListening.current = true
+                    setScrollTop(0)
+                    clickTab(item)
+                  }}
                 >
                   {item.seriesName}
                 </Text>
