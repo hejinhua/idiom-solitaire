@@ -4,11 +4,11 @@
  * @Description: baseUrl
  */
 
-let baseUrl = 'https://www.bzchao.com/web9000/api/'
+let baseUrl = 'https://portal.dowincenter.com/v1/api/'
 // if (process.env.NODE_ENV === 'development') {
-//   BASE_URL = ''
+//   baseUrl = 'https://www.bzchao.com/web9000/api/'
 // } else {
-//   BASE_URL = ''
+//   baseUrl = 'https://portal.dowincenter.com/v1/api/'
 // }
 
 let baseCDNUrl = 'https://dwyc.oss-cn-chengdu.aliyuncs.com/'
