@@ -59,9 +59,10 @@ const Index = () => {
         return result
       }, {})
       const currentSeries = seriesList.find(item => item.seriesId === seriesPid)
-      const data = currentSeries?.materialSeriesList || [currentSeries]
+      const data = currentSeries?.dishSeriesList || [currentSeries]
       // @ts-ignore
       data.forEach(item => (item.list = listMap[item.seriesId] || []))
+      console.log(data)
       setData(data)
     })
   }
