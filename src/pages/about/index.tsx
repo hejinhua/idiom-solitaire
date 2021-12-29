@@ -20,7 +20,7 @@ const Index = () => {
   return (
     <View className='wrapper'>
       {imgs.map(item => (
-        <Image key={baseCDNUrl + item} src={item} mode='widthFix' className='img' />
+        <Image key={item} src={baseCDNUrl + item} mode='widthFix' className='img' />
       ))}
     </View>
   )

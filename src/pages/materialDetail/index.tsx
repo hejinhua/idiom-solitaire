@@ -84,7 +84,7 @@ const Index = () => {
         <Image src={slashIcon} className='slash' />
       </View>
       {data?.materialDetail?.split(',').map(item => (
-        <Image key={baseCDNUrl + item} src={item} className='detail-img' />
+        <Image key={item} src={baseCDNUrl + item} mode='widthFix' className='detail-img' />
       ))}
       <View className='footer'>
         <Button text='了解更多供应信息' size='normal' onClick={data.supplierList ? handleSupplier : toogleVisible} />

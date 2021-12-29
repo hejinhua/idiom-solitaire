@@ -94,7 +94,7 @@ const Index = () => {
       </Card>
       <Card title='操作步骤'>
         {data.productionStep?.split(',').map(item => (
-          <Image key={baseCDNUrl + item} src={item} className='stepImg' />
+          <Image key={item} src={baseCDNUrl + item} className='stepImg' />
         ))}
       </Card>
       <Card title='应用场景'>
