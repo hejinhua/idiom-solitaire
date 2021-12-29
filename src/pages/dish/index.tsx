@@ -7,6 +7,7 @@ import { SeriesType } from '@/constants/commonTypes'
 
 import './index.styl'
 import logoIcon from '@/assets/icons/logo.png'
+import Taro from '@tarojs/taro'
 
 const Index = () => {
   const { top, height } = useMemo(() => getGlobalData('capsuleInfo'), [])
@@ -23,14 +24,17 @@ const Index = () => {
         seriesList.unshift({ seriesId: -1, seriesName: '新品首发' })
       }
       setSeriesList(seriesList)
-      if (!values[1]) {
-        clickTab(seriesList[0])
-      } else {
+      if (newList?.length > 0) {
         setCurrent(-1)
         setData([{ seriesId: -1, seriesName: '新品首发', list: newList }])
       }
     })
   }, [setSeriesList])
+  useEffect(() => {
+    if (seriesList?.length > 0 && seriesList[0].seriesId !== -1) {
+      clickTab(seriesList[0])
+    }
+  }, [seriesList])
   const clickTab = item => {
     const { seriesId, dishSeriesList } = item
     setCurrent(seriesId)
@@ -43,7 +47,6 @@ const Index = () => {
   }
   const clickSubTab = item => {
     setSubCurrent(item.seriesId)
-    // loadDishList(current)
   }
   const loadDishList = seriesPid => {
     getDishList({ seriesPid }).then(res => {
@@ -55,7 +58,8 @@ const Index = () => {
         })
         return result
       }, {})
-      const data = (seriesList.find(item => item.seriesId === seriesPid) || {}).dishSeriesList || []
+      const currentSeries = seriesList.find(item => item.seriesId === seriesPid)
+      const data = currentSeries?.materialSeriesList || [currentSeries]
       // @ts-ignore
       data.forEach(item => (item.list = listMap[item.seriesId] || []))
       setData(data)

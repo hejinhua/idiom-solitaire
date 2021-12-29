@@ -24,12 +24,12 @@ const Index: FC<props> = ({ banner, videoFace, videoUrl }) => {
     <Swiper className='detail-banner'>
       {videoUrl && (
         <SwiperItem>
-          <Video src={baseCDNUrl + videoUrl} poster={videoFace} />
+          <Video src={baseCDNUrl + videoUrl} poster={videoFace} className='img' />
         </SwiperItem>
       )}
       {list.map(item => (
         <SwiperItem key={item}>
-          <Image src={baseCDNUrl + item} />
+          <Image src={baseCDNUrl + item} className='img' />
         </SwiperItem>
       ))}
     </Swiper>

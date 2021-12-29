@@ -22,14 +22,17 @@ const Index = () => {
         seriesList.unshift({ seriesId: -1, seriesName: '新品首发' })
       }
       setSeriesList(seriesList)
-      if (!values[1]) {
-        clickTab(seriesList[0])
-      } else {
+      if (newList?.length > 0) {
         setCurrent(-1)
         setData([{ seriesId: -1, seriesName: '新品首发', list: newList }])
       }
     })
   }, [setSeriesList])
+  useEffect(() => {
+    if (seriesList?.length > 0 && seriesList[0].seriesId !== -1) {
+      clickTab(seriesList[0])
+    }
+  }, [seriesList])
   const clickTab = item => {
     const { seriesId, materialSeriesList } = item
     setCurrent(seriesId)
@@ -54,7 +57,8 @@ const Index = () => {
         })
         return result
       }, {})
-      const data = (seriesList.find(item => item.seriesId === seriesPid) || {}).materialSeriesList || []
+      const currentSeries = seriesList.find(item => item.seriesId === seriesPid)
+      const data = currentSeries?.materialSeriesList || [currentSeries]
       // @ts-ignore
       data.forEach(item => (item.list = listMap[item.seriesId] || []))
       setData(data)
