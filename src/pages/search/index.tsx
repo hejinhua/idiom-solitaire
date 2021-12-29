@@ -72,6 +72,7 @@ const Index = () => {
   }
   const handleDeleteHistory = () => {
     Taro.removeStorageSync('searchHistoryList')
+    setValue('')
   }
   return (
     <View className='search flex-y'>
