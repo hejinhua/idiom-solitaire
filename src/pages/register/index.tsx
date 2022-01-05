@@ -1,11 +1,11 @@
 import React, { useState, useMemo } from 'react'
 import { useRouter } from '@tarojs/taro'
-import { View, Text, Input, Picker, Image } from '@tarojs/components'
+import { View, Text, Input, Picker, Image, Button } from '@tarojs/components'
 import { isMobile, pageToLogin, showToast } from '@/utils/utils'
-import { register, updateRegisterInfo } from '@/services/user'
+import { getWxPhone, register, updateRegisterInfo } from '@/services/user'
 import { getCompanyList } from '@/services/api'
 import { CompanyType } from '@/constants/commonTypes'
-import Button from '@/components/Button'
+import CustomButton from '@/components/Button'
 import { getGlobalData } from '@/utils/global-data'
 import logoIcon from '@/assets/icons/logo.png'
 
@@ -93,6 +93,17 @@ const Index = () => {
     setData({ ...data, address, companyId, companyName, customerName, registerAddress })
     setCompanyList([])
   }
+  const getPhoneNumber = e => {
+    const { errMsg, encryptedData, iv } = e.detail
+    if (errMsg == 'getPhoneNumber:ok') {
+      const userSession = getGlobalData('userSession')
+      getWxPhone({ ...userSession, encryptedData, iv }).then(res => {
+        setData({ ...data, phone: res.data })
+      })
+    } else {
+      showToast('获取手机号失败，请允许授权')
+    }
+  }
   return (
     <View className='wrapper'>
       <View className='bg'>
@@ -177,6 +188,9 @@ const Index = () => {
             value={data.phone}
           />
         </View>
+        <Button openType='getPhoneNumber' onGetPhoneNumber={getPhoneNumber}>
+          获取手机号
+        </Button>
         <View className='input-wrapper'>
           <Text className='label require'>密码</Text>
           <Input
@@ -197,7 +211,7 @@ const Index = () => {
             onInput={e => handleChange('re_password', e)}
           />
         </View>
-        <Button text='提交' onClick={handleRegister} style='margin-top: 100rpx' />
+        <CustomButton text='提交' onClick={handleRegister} style='margin-top: 100rpx' />
       </View>
     </View>
   )

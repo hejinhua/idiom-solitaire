@@ -1,15 +1,16 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Taro from '@tarojs/taro'
-import { View, Image, Text, Input } from '@tarojs/components'
+import { View, Image, Text, Input, Button } from '@tarojs/components'
 import { isMobile, showToast, toPage } from '@/utils/utils'
-import { login } from '@/services/user'
-import Button from '@/components/Button'
+import { getUserSession, login, wxLogin } from '@/services/user'
+import CustomButton from '@/components/Button'
 import QrModal from '@/components/QrModal'
 
 import './index.styl'
 import passwordIcon from '@/assets/icons/password.png'
 import phoneIcon from '@/assets/icons/phone.png'
 import logoIcon from '@/assets/icons/logo.png'
+import { getGlobalData } from '@/utils/global-data'
 
 const Index = () => {
   const [data, setData] = useState({ phone: Taro.getStorageSync('phone') || '', password: '' })
@@ -17,6 +18,9 @@ const Index = () => {
   const toogleVisible = () => {
     setVisible(!visible)
   }
+  useEffect(() => {
+    getUserSession()
+  }, [])
   const handleChange = (name, e) => {
     data[name] = e.detail.value
     setData(data)
@@ -43,6 +47,22 @@ const Index = () => {
   }
   const toRegister = () => {
     toPage('/pages/register/index')
+  }
+  const getPhoneNumber = e => {
+    const { errMsg, encryptedData, iv } = e.detail
+    if (errMsg == 'getPhoneNumber:ok') {
+      const userSession = getGlobalData('userSession')
+      wxLogin({ ...userSession, encryptedData, iv }).then(res => {
+        if (res?.data) {
+          const { token } = res.data
+          Taro.setStorageSync('token', token)
+          Taro.setStorage({ key: 'userInfo', data: res.data })
+          toPage('/pages/index/index', true)
+        }
+      })
+    } else {
+      showToast('获取手机号失败，请允许授权')
+    }
   }
   return (
     <View className='wrapper'>
@@ -76,7 +96,10 @@ const Index = () => {
             onInput={e => handleChange('password', e)}
           />
         </View>
-        <Button text='登录' onClick={handleLogin} style='margin-top: 100rpx' />
+        <CustomButton text='登录' onClick={handleLogin} style='margin-top: 100rpx' />
+        <Button openType='getPhoneNumber' onGetPhoneNumber={getPhoneNumber}>
+          微信一键登录
+        </Button>
         <View className='register-link' onClick={toRegister}>
           注册账号
         </View>

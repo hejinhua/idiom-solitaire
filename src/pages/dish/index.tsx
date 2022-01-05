@@ -62,7 +62,6 @@ const Index = () => {
       const data = currentSeries?.dishSeriesList || [currentSeries]
       // @ts-ignore
       data.forEach(item => (item.list = listMap[item.seriesId] || []))
-      console.log(data)
       setData(data)
     })
   }
