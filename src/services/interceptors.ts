@@ -4,6 +4,7 @@
  * @Description: 拦截器
  */
 import { setGlobalData } from '@/utils/global-data'
+import { endLoading } from '@/utils/loading-util'
 import Taro from '@tarojs/taro'
 import { pageToLogin, showToast, toPage } from '../utils/utils'
 import { CUSTOM_STATUS, HTTP_STATUS } from './status'
@@ -29,17 +30,20 @@ const customInterceptor = chain => {
       const { code, msg } = res.data || {}
       if (code === CUSTOM_STATUS.SUCCESS) {
         return res.data
-      } else if (code === CUSTOM_STATUS.AUTH_REVIEWING) {
-        toPage('/pages/review/index?result=reviewing')
-      } else if (code === CUSTOM_STATUS.AUTH_REFUSE) {
-        setGlobalData('updateUserInfo', res.data?.data)
-        toPage('/pages/review/index?result=refuse')
       } else {
-        showToast(msg, () => {
-          if (code === CUSTOM_STATUS.AUTHENTICATE) {
-            pageToLogin()
-          }
-        })
+        endLoading()
+        if (code === CUSTOM_STATUS.AUTH_REVIEWING) {
+          toPage('/pages/review/index?result=reviewing')
+        } else if (code === CUSTOM_STATUS.AUTH_REFUSE) {
+          setGlobalData('updateUserInfo', res.data?.data)
+          toPage('/pages/review/index?result=refuse')
+        } else {
+          showToast(msg, () => {
+            if (code === CUSTOM_STATUS.AUTHENTICATE) {
+              pageToLogin()
+            }
+          })
+        }
       }
     }
   })
