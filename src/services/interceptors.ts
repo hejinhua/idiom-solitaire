@@ -37,6 +37,18 @@ const customInterceptor = chain => {
         } else if (code === CUSTOM_STATUS.AUTH_REFUSE) {
           setGlobalData('updateUserInfo', res.data?.data)
           toPage('/pages/review/index?result=refuse')
+        } else if (code === CUSTOM_STATUS.UNREGISTERED) {
+          Taro.showModal({
+            title: '提示',
+            content: '当前手机号还未注册',
+            confirmText: '去注册',
+            confirmColor: '#D73434',
+            success(res) {
+              if (res.confirm) {
+                toPage('/pages/register/index')
+              }
+            }
+          })
         } else {
           showToast(msg, () => {
             if (code === CUSTOM_STATUS.AUTHENTICATE) {

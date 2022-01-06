@@ -12,11 +12,12 @@ type Props = {
   style?: any
   text: string
   size?: 'big' | 'normal'
+  outline?: boolean
   onClick: () => void
 }
-const Index: FC<Props> = ({ style, text, size = 'big', onClick }) => {
+const Index: FC<Props> = ({ style, text, size = 'big', outline, onClick }) => {
   return (
-    <View className={`button ${size}`} onClick={onClick} style={style}>
+    <View className={`button ${size} ${outline ? 'outline' : ''}`} onClick={onClick} style={style}>
       <Text>{text}</Text>
     </View>
   )

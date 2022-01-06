@@ -19,7 +19,7 @@ export const HTTP_STATUS = {
 
 export const CUSTOM_STATUS = {
   SUCCESS: 200,
-  UN_REGISTER: 296, // 微信手机号没注册
+  UNREGISTERED: 296, // 微信一键登录，手机号未注册
   AUTH_FORBIDDEN: 297, // 账号被禁用
   AUTH_REVIEWING: 298, // 账号审核中
   AUTH_REFUSE: 299, // 账号审核被拒绝

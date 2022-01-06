@@ -5,12 +5,12 @@ import { isMobile, showToast, toPage } from '@/utils/utils'
 import { getUserSession, login, wxLogin } from '@/services/user'
 import CustomButton from '@/components/Button'
 import QrModal from '@/components/QrModal'
+import { getGlobalData } from '@/utils/global-data'
 
 import './index.styl'
 import passwordIcon from '@/assets/icons/password.png'
 import phoneIcon from '@/assets/icons/phone.png'
 import logoIcon from '@/assets/icons/logo.png'
-import { getGlobalData } from '@/utils/global-data'
 
 const Index = () => {
   const [data, setData] = useState({ phone: Taro.getStorageSync('phone') || '', password: '' })
@@ -96,8 +96,8 @@ const Index = () => {
             onInput={e => handleChange('password', e)}
           />
         </View>
-        <CustomButton text='登录' onClick={handleLogin} style='margin-top: 100rpx' />
-        <Button openType='getPhoneNumber' onGetPhoneNumber={getPhoneNumber}>
+        <CustomButton text='登录' onClick={handleLogin} style='margin-top: 100rpx' outline />
+        <Button openType='getPhoneNumber' onGetPhoneNumber={getPhoneNumber} className='wx-button'>
           微信一键登录
         </Button>
         <View className='register-link' onClick={toRegister}>

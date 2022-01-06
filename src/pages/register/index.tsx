@@ -178,19 +178,21 @@ const Index = () => {
             value={data.companyPosition}
           />
         </View>
-        <View className='input-wrapper'>
-          <Text className='label require'>手机号码</Text>
-          <Input
-            type='number'
-            placeholder='请输入手机号码'
-            className='input'
-            onInput={e => handleChange('phone', e)}
-            value={data.phone}
-          />
+        <View className='phone-wrapper flex-x'>
+          <View className='input-wrapper'>
+            <Text className='label require'>手机号码</Text>
+            <Input
+              type='number'
+              placeholder='请输入手机号码'
+              className='input'
+              onInput={e => handleChange('phone', e)}
+              value={data.phone}
+            />
+          </View>
+          <Button openType='getPhoneNumber' onGetPhoneNumber={getPhoneNumber} className='phone-link'>
+            获取手机号
+          </Button>
         </View>
-        <Button openType='getPhoneNumber' onGetPhoneNumber={getPhoneNumber}>
-          获取手机号
-        </Button>
         <View className='input-wrapper'>
           <Text className='label require'>密码</Text>
           <Input
