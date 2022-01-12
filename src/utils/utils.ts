@@ -4,9 +4,7 @@
  * @Description: 通用 utils
  */
 import { tabbarUrlList } from '@/constants/constants'
-import { getServicePhone } from '@/services/api'
 import Taro from '@tarojs/taro'
-import { getGlobalData, setGlobalData } from './global-data'
 
 export const getCurrentPageUrl = () => {
   let pages = Taro.getCurrentPages()
@@ -48,21 +46,6 @@ export const formatPrice = price => {
   let decimal = price.toString().split('.')[1]
   return decimal?.length >= 1 ? price : price + '.0'
 }
-export const customerService = () => {
-  const servicePhone = getGlobalData('servicePhone')
-  if (servicePhone) {
-    Taro.makePhoneCall({
-      phoneNumber: servicePhone
-    })
-  } else {
-    getServicePhone().then(res => {
-      setGlobalData('servicePhone', res?.data)
-      Taro.makePhoneCall({
-        phoneNumber: res?.data
-      })
-    })
-  }
-}
 
 /**
  * @description: 缓存栈
@@ -97,4 +80,23 @@ export const setStack = (listName: string, listLength: number, data) => {
 export const getTimestamp = (date?) => {
   if (!date) return new Date().getTime()
   return new Date(date.replace(/-/g, '/')).getTime()
+}
+export const formatDate = d => {
+  d = new Date(d)
+  var year = d.getFullYear()
+  var month = change(d.getMonth() + 1)
+  var day = change(d.getDate())
+  var hour = change(d.getHours())
+  var minute = change(d.getMinutes())
+  var second = change(d.getSeconds())
+
+  function change(t) {
+    if (t < 10) {
+      return '0' + t
+    } else {
+      return t
+    }
+  }
+  var time = year + '-' + month + '-' + day + ' ' + hour + ':' + minute + ':' + second
+  return time
 }

@@ -1,8 +1,9 @@
 {
   "miniprogramRoot": "dist/",
-  "projectname": "demo",
+  "cloudfunctionRoot": "cloudfunctions/",
+  "projectname": "idiom-solitaire",
   "description": "",
-  "appid": "wxc1e9217f17e0cf08",
+  "appid": "wxcb2e15849c129853",
   "setting": {
     "urlCheck": false,
     "es6": false,
@@ -22,9 +23,9 @@
     "uploadWithSourceMap": true,
     "compileHotReLoad": false,
     "lazyloadPlaceholderEnable": false,
-    "useMultiFrameRuntime": false,
-    "useApiHook": false,
-    "useApiHostProcess": false,
+    "useMultiFrameRuntime": true,
+    "useApiHook": true,
+    "useApiHostProcess": true,
     "babelSetting": {
       "ignore": [],
       "disablePlugins": [],
@@ -44,5 +45,6 @@
   "compileType": "miniprogram",
   "simulatorType": "wechat",
   "simulatorPluginLibVersion": {},
+  "cloudfunctionTemplateRoot": "cloudfunctionTemplate",
   "condition": {}
 }

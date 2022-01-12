@@ -1,4 +1,5 @@
 export default {
-  navigationStyle: 'custom',
-  navigationBarTextStyle: 'white'
+  // navigationStyle: 'custom'
+  // navigationBarTextStyle: 'white',
+  navigationBarTitleText: '成语接龙'
 }

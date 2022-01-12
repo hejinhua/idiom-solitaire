@@ -13,52 +13,11 @@
     "miniprogram": {
       "list": [
         {
-          "name": "pages/login/index",
-          "pathName": "pages/login/index",
+          "name": "pages/play/index",
+          "pathName": "pages/play/index",
           "query": "",
-          "scene": null
-        },
-        {
-          "name": "pages/register/index",
-          "pathName": "pages/register/index",
-          "query": "",
-          "scene": null
-        },
-        {
-          "name": "pages/mine/index",
-          "pathName": "pages/mine/index",
-          "query": "",
-          "scene": null
-        },
-        {
-          "name": "pages/dishDetail/index",
-          "pathName": "pages/dishDetail/index",
-          "query": "dishId=1",
-          "scene": null
-        },
-        {
-          "name": "pages/material/index",
-          "pathName": "pages/material/index",
-          "query": "",
-          "scene": null
-        },
-        {
-          "name": "pages/materialDetail/index",
-          "pathName": "pages/materialDetail/index",
-          "query": "materialId=1",
-          "scene": null
-        },
-        {
-          "name": "pages/search/index",
-          "pathName": "pages/search/index",
-          "query": "",
-          "scene": null
-        },
-        {
-          "name": "pages/order/index",
-          "pathName": "pages/order/index",
-          "query": "dishName=%E7%95%AA%E8%8C%84%E8%8A%B1%E8%83%B6%E9%B2%8D%E9%B1%BC%E7%89%9B%E8%85%A9%E7%85%B22",
-          "scene": null
+          "scene": null,
+          "launchMode": "default"
         }
       ]
     }

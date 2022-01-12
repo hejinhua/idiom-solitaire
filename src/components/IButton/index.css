@@ -1,0 +1,23 @@
+.button {
+  color: #fff;
+  text-align: center;
+  background-image: linear-gradient(to right, #ff5968, #ff4040);
+  border-radius: 55px;
+}
+.big {
+  height: 110px;
+  font-size: 40px;
+  line-height: 110px;
+}
+.normal {
+  height: 80px;
+  font-size: 32px;
+  line-height: 80px;
+}
+.outline {
+  background-image: none;
+  background-color: #fff;
+  border: 2px solid #ff5059;
+  box-sizing: border-box;
+  color: #ff5059;
+}

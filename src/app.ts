@@ -1,7 +1,7 @@
 import { Component } from 'react'
 import Taro from '@tarojs/taro'
 
-import './app.styl'
+import './app.css'
 
 class App extends Component {
   componentDidMount() {
@@ -28,6 +28,7 @@ class App extends Component {
         })
       }
     })
+    this.cloudInit()
   }
 
   componentDidShow() {}
@@ -35,6 +36,17 @@ class App extends Component {
   componentDidHide() {}
 
   componentDidCatchError() {}
+
+  cloudInit = () => {
+    if (!Taro.cloud) {
+      console.error('请使用 2.2.3 或以上的基础库以使用云能力')
+    } else {
+      Taro.cloud.init({
+        env: 'cloud1-5gwefth1dd909e23',
+        traceUser: true
+      })
+    }
+  }
 
   // this.props.children 是将要会渲染的页面
   render() {

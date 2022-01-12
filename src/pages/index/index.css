@@ -1,0 +1,11 @@
+.index {
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  background: url(../../assets/images/bg.png) no-repeat;
+  background-size: 100% auto;
+}
+.action {
+  margin: 0 80px;
+  margin-top: 660px;
+}

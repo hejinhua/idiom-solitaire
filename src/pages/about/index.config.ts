@@ -1,3 +1,4 @@
 export default {
-  navigationBarTitleText: '关于多味'
+  navigationStyle: 'custom',
+  navigationBarTextStyle: 'white'
 }
