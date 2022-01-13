@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from 'react'
-import { View, ScrollView, Text, Input } from '@tarojs/components'
+import React, { useState, useEffect, useRef, useMemo } from 'react'
+import { View, ScrollView, Text, Input, Image } from '@tarojs/components'
 
 import './index.css'
 import Taro from '@tarojs/taro'
 import { cloudFunction } from '@/services/cloudFunction'
+import defaultFace from '@/assets/icons/avatar.png'
 
 const Index = () => {
   const [val, setVal] = useState('')
@@ -11,6 +12,9 @@ const Index = () => {
   const [chance, setChance] = useState(3)
   const [desc, setDesc] = useState<any>()
   const [idiomList, setIdiomList] = useState<any>([])
+  const [kbHeight, setKbHeight] = useState(0)
+  const wLen = useRef(0)
+  const userInfo = useMemo(() => Taro.getStorageSync('userInfo'), [])
   useEffect(() => {
     cloudFunction({ name: 'getRandomIdiom' }).then(res => {
       setIdiomList(res || [])
@@ -70,9 +74,10 @@ const Index = () => {
     let res = type === '+' ? chance + num : chance - num
     setChance(res >= 0 ? res : 0)
     if (res <= 0) {
-      cloudFunction({ name: 'recordHistory', data: { idiomList } })
+      cloudFunction({ name: 'recordHistory', data: { idiomList, userInfo } })
       showErrorModal('game over', {
         confirmText: '重新开始',
+        cancelText: '回主页',
         showCancel: true,
         success(res) {
           if (res.confirm) {
@@ -89,14 +94,16 @@ const Index = () => {
     }
   }
   return (
-    <View className='wrapper flex-y'>
+    <View className='wrapper'>
       <ScrollView
         scrollY
-        className='scroll-view flex-grow-y'
+        className='scroll-view'
         scrollIntoView={`word${idiomList[idiomList.length - 1]?._id}`}
+        style={`margin-top: ${idiomList?.length < wLen.current ? kbHeight : 0}px`}
       >
         {idiomList.map((item, index) => (
           <View key={item._id} className={index % 2 === 0 ? 'left-row' : 'right-row'} id={`word${item._id}`}>
+            <Image src={index % 2 === 0 ? defaultFace : userInfo.avatarUrl} className='face' />
             <Text
               className={index % 2 === 0 ? 'left-word' : 'right-word'}
               onClick={() => {
@@ -113,7 +120,14 @@ const Index = () => {
           <Text className='tips-btn' onClick={handleTips}>
             提示 {tipNum > 0 ? tipNum : ''}
           </Text>
-          <Text className='tips-btn'>认输</Text>
+          <Text
+            className='tips-btn'
+            onClick={() => {
+              countChance('-', chance)
+            }}
+          >
+            认输
+          </Text>
           <Text className='tips-btn'>生命 {chance}</Text>
         </View>
         <View className='flex-x input-area'>
@@ -126,6 +140,16 @@ const Index = () => {
             onConfirm={handleConfirm}
             value={val}
             autoFocus
+            onBlur={() => {
+              setKbHeight(0)
+            }}
+            onKeyboardHeightChange={e => {
+              const { height } = e.detail
+              if (height > 0) {
+                setKbHeight(height - 17)
+                wLen.current = (height - 17) / 52
+              }
+            }}
           />
           <Text className='confirm' onClick={handleConfirm}>
             确认

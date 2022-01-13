@@ -1,0 +1,41 @@
+.wrapper {
+  width: 100vw;
+}
+.histort-item {
+  margin: 20px 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  line-height: 1;
+}
+.normal {
+  font-weight: bold;
+  margin: 0 10px;
+  font-size: 28px;
+}
+.posi0 {
+  font-size: 40px;
+  color: #ff5059;
+}
+.posi01 {
+  font-size: 34px;
+  color: mediumturquoise;
+}
+.posi02 {
+  font-size: 30px;
+  color: burlywood;
+}
+.face {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  margin: 0 20px;
+}
+.grade {
+  font-size: 24px;
+  color: #383031;
+}
+.count {
+  font-size: 30px;
+  font-weight: bold;
+}

@@ -5,11 +5,12 @@ cloud.init()
 
 // 云函数入口函数
 exports.main = async (event, context) => {
+  const wxContext = cloud.getWXContext()
   const db = cloud.database({
     throwOnNotFound: false
   })
   const _ = db.command
-  const { idiomList, method = 'put' } = event
+  const { idiomList, method = 'put', userInfo } = event
   return new Promise((resolve, reject) => {
     if (method === 'put') {
       db.collection('history')
@@ -17,7 +18,8 @@ exports.main = async (event, context) => {
           data: {
             idiomList,
             createTime: db.serverDate(),
-            solitaireCount: idiomList.length
+            solitaireCount: idiomList.length,
+            userInfo
           }
         })
         .then(res => {
@@ -26,6 +28,9 @@ exports.main = async (event, context) => {
     } else if (method === 'get') {
       db.collection('history')
         .aggregate()
+        .match({
+          'userInfo.openid': wxContext.OPENID
+        })
         .sort({
           solitaireCount: -1
         })
@@ -33,7 +38,6 @@ exports.main = async (event, context) => {
         .then(res => {
           resolve(res.list)
         })
-    } else {
     }
   })
 }

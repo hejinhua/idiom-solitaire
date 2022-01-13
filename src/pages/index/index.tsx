@@ -15,7 +15,8 @@ const Index = () => {
     <View className='index'>
       <View className='action'>
         <IButton text='开始接龙' onClick={handlePage('play')} />
-        <IButton text='历史成绩' onClick={handlePage('history')} style={{ marginTop: '30px' }} />
+        <IButton text='排行榜' onClick={handlePage('rank')} style={{ margin: '20px 0' }} />
+        <IButton text='历史成绩' onClick={handlePage('history')} />
       </View>
     </View>
   )

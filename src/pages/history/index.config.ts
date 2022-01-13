@@ -1,3 +1,3 @@
 export default {
-  navigationBarTitleText: '成语接龙'
+  navigationBarTitleText: '历史成绩'
 }

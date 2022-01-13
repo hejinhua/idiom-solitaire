@@ -25,7 +25,7 @@ const Index = () => {
   return (
     <View className='wrapper'>
       {list?.map(item => (
-        <View key={item._id}>
+        <View key={item._id} className='histort-item'>
           {item.createTime} 接龙{item.solitaireCount}次
         </View>
       ))}
