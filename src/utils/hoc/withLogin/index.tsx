@@ -15,7 +15,7 @@ import { cloudFunction } from '@/services/cloudFunction'
 const withLogin = WrappedComponent => {
   return class extends Component {
     state = {
-      showLoginModal: false
+      showLoginModal: true
     }
     componentDidMount() {
       this.checkLogin()
