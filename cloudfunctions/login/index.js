@@ -13,31 +13,27 @@ exports.main = async (event, context) => {
   const db = cloud.database({
     throwOnNotFound: false
   })
-  const userDB = db.collection('user')
   return new Promise((resolve, reject) => {
-    if (!userInfo) {
-      userDB
-        .where({
-          openid: wxContext.OPENID
-        })
-        .get()
-        .then(res => {
+    db.collection('user')
+      .get()
+      .then(res => {
+        if (res.data[0]) {
           resolve(res.data[0])
-        })
-        .catch(() => {
-          reject('error')
-        })
-    } else {
-      userDB
-        .add({
-          data: { ...userInfo, openid: wxContext.OPENID }
-        })
-        .then(res => {
-          resolve(res)
-        })
-        .catch(() => {
-          reject('error')
-        })
-    }
+        } else {
+          db.collection('user')
+            .add({
+              data: { ...userInfo, createTime: db.serverDate() }
+            })
+            .then(res => {
+              resolve(res)
+            })
+            .catch(() => {
+              reject('error')
+            })
+        }
+      })
+      .catch(() => {
+        reject('error')
+      })
   })
 }

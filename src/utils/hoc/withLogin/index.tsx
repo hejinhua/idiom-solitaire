@@ -25,23 +25,17 @@ const withLogin = WrappedComponent => {
       if (userInfo) {
         return
       } else {
-        cloudFunction({ name: 'login' }).then(res => {
-          if (res) {
-            Taro.setStorage({ key: 'userInfo', data: res })
-          } else {
-            this.setState({ showLoginModal: true })
-          }
-        })
+        this.setState({ showLoginModal: true })
       }
     }
     getUserInfo = () => {
+      this.setState({ showLoginModal: false })
       Taro.getUserProfile({
         desc: '用于完善用户信息',
         success: res => {
           Taro.setStorage({ key: 'userInfo', data: res.userInfo })
           cloudFunction({ name: 'login', data: { userInfo: res.userInfo } }).then(() => {
             showToast('登录成功')
-            this.setState({ showLoginModal: false })
           })
         }
       })
