@@ -12,18 +12,20 @@
   font-weight: bold;
   margin: 0 10px;
   font-size: 28px;
+  width: 50px;
+  text-align: center;
 }
 .posi0 {
-  font-size: 40px;
+  font-size: 60px;
   color: #ff5059;
 }
-.posi01 {
-  font-size: 34px;
+.posi1 {
+  font-size: 50px;
   color: mediumturquoise;
 }
-.posi02 {
-  font-size: 30px;
-  color: burlywood;
+.posi2 {
+  font-size: 40px;
+  color: darkorange;
 }
 .face {
   width: 50px;
@@ -36,6 +38,6 @@
   color: #383031;
 }
 .count {
-  font-size: 30px;
+  font-size: 40px;
   font-weight: bold;
 }
