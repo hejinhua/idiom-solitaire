@@ -2,7 +2,7 @@
   width: 100vw;
   height: 100vh;
   position: fixed;
-  background-color: rgba(0, 0, 0, 0.1);
+  background-color: rgba(0, 0, 0, 0.5);
   top: 0;
   left: 0;
 }
@@ -19,5 +19,16 @@
   flex-direction: column;
   justify-content: space-around;
   text-align: center;
-  /* align-items: center; */
+  position: relative;
+}
+.modal-header {
+  text-align: center;
+  font-weight: bold;
+}
+.close {
+  position: absolute;
+  width: 60px;
+  height: 60px;
+  bottom: -80px;
+  left: 170px;
 }

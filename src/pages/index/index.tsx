@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { View } from '@tarojs/components'
 
 import './index.css'
@@ -6,10 +6,11 @@ import IButton from '@/components/IButton'
 import withLogin from '@/utils/hoc/withLogin'
 import { toPage } from '@/utils/utils'
 
-const Index = () => {
-  useEffect(() => {}, [])
+const Index = ({ checkLogin }) => {
   const handlePage = type => () => {
-    toPage(`/pages/${type}/index`)
+    checkLogin(() => {
+      toPage(`/pages/${type}/index`)
+    })
   }
   return (
     <View className='index'>
