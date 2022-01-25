@@ -28,9 +28,6 @@ exports.main = async (event, context) => {
     } else if (method === 'get') {
       db.collection('history')
         .aggregate()
-        .match({
-          'userInfo.openid': wxContext.OPENID
-        })
         .sort({
           solitaireCount: -1
         })

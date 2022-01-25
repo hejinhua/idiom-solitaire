@@ -16,7 +16,6 @@ const Index = () => {
     }).then(res => {
       // @ts-ignore
       res?.forEach(item => {
-        console.log(item.createTime)
         item.createTime = formatDate(item.createTime)
       })
       setList(res)

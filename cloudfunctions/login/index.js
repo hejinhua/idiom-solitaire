@@ -22,7 +22,7 @@ exports.main = async (event, context) => {
         } else {
           db.collection('user')
             .add({
-              data: { ...userInfo, createTime: db.serverDate() }
+              data: { ...userInfo, createTime: db.serverDate(), openid: wxContext.OPENID }
             })
             .then(res => {
               resolve(res)
