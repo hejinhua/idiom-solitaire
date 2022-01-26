@@ -5,8 +5,13 @@ import './index.css'
 import IButton from '@/components/IButton'
 import withLogin from '@/utils/hoc/withLogin'
 import { toPage } from '@/utils/utils'
+import { useShareAppMessage } from '@tarojs/taro'
 
 const Index = ({ checkLogin }) => {
+  useShareAppMessage(() => ({
+    title: '一起来成语接龙吧～',
+    path: '/pages/index/index'
+  }))
   const handlePage = type => () => {
     checkLogin(() => {
       toPage(`/pages/${type}/index`)
