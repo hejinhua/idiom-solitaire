@@ -11,6 +11,7 @@ exports.main = async (event, context) => {
   })
   const _ = db.command
   const { idiomList, method = 'put', userInfo } = event
+  const solitaireCount = Math.floor(idiomList.length / 2)
   return new Promise((resolve, reject) => {
     if (method === 'put') {
       db.collection('history')
@@ -18,7 +19,7 @@ exports.main = async (event, context) => {
           data: {
             idiomList,
             createTime: db.serverDate(),
-            solitaireCount: idiomList.length,
+            solitaireCount,
             userInfo,
             openid: wxContext.OPENID
           }
