@@ -19,7 +19,8 @@ exports.main = async (event, context) => {
             idiomList,
             createTime: db.serverDate(),
             solitaireCount: idiomList.length,
-            userInfo
+            userInfo,
+            openid: wxContext.OPENID
           }
         })
         .then(res => {
@@ -27,13 +28,13 @@ exports.main = async (event, context) => {
         })
     } else if (method === 'get') {
       db.collection('history')
-        .aggregate()
-        .sort({
-          solitaireCount: -1
+        .where({
+          openid: wxContext.OPENID
         })
-        .end()
+        .orderBy('solitaireCount', 'desc')
+        .get()
         .then(res => {
-          resolve(res.list)
+          resolve(res.data)
         })
     }
   })
